@@ -7,5 +7,12 @@
 </ion-header> -->
 
 <ion-content padding>
+
+	<div class="list">
+		<button ion-button *ngFor="let drum of drums" 
+			(mousedown)="mousedown(drum)" >
+			{{ drum.name }}
+		</button>
+	</div>
   
 </ion-content>

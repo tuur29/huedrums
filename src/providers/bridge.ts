@@ -28,7 +28,13 @@ export class Bridge {
   }
 
   getLights() {
-    return this.bridge.lights;
+    let array = [];
+    for (let key in this.bridge.lights) {
+      let light = this.bridge.lights[key];
+      light.id = key;
+      array.push(light);
+    }
+    return array;
   }
 
   private query() {

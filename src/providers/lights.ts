@@ -8,7 +8,6 @@ import { Bridge } from './bridge';
 @Injectable()
 export class Lights {
 
-  private lights;
   private ready;
 
   constructor(
@@ -29,6 +28,21 @@ export class Lights {
 
   query() {
     return this.bridge.getLights();
+  }
+
+  flash(light) {
+    let url = 'lights/'+light.id+'/state';
+
+    // this.api.put(url, {alert: "none"}).subscribe();
+    this.api.put(url, {on: !light.state.on, transitiontime: 0}).subscribe(() => {
+      light.state.transitiontime = 0;
+      setTimeout(() => {
+        this.api.put(url, light.state).subscribe(() => {
+          console.log("drum done");
+        });
+      }, 100);
+    });
+
   }
 
 }

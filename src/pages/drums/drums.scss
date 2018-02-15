@@ -1,3 +1,50 @@
+
+// Source: https://css-tricks.com/snippets/sass/maintain-aspect-ratio-mixin/
+
+@mixin aspect-ratio($width, $height) {
+
+  position: relative;
+
+  &:before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: ($height / $width) * 100%;
+  }
+
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+
 page-drums {
+
+	.list {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-evenly;
+		align-items: center;
+		align-content: space-around;
+		height: 100%;
+		width: 100%;
+	}
+
+	.button-md {
+		flex: 1 0 10%;
+		max-width: 25%;
+		height: unset;
+		border-radius: 100%;
+		padding: 0;
+		@include aspect-ratio(1, 1);
+	}
+
+	.button-inner {
+		opacity: 0.1;
+	}
 
 }

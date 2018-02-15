@@ -91,7 +91,7 @@ export class Api {
   // HELPERS
 
   private getApiKey(ip: string, resolve) {
-    this.showAlert(ip).then((data) => {
+    this.showAlert(ip).then((data: any) => {
 
       this.apikey = data.apikey;
       this.ip = data.ip;

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import { Bridge } from '../../providers/bridge';
 import { Lights } from '../../providers/lights';
 
 
@@ -19,9 +18,15 @@ export class DrumsPage {
   ) {
 
   	this.lights.onReady().then(() => {
-  		this.drums = this.lights.query();
+      this.drums = this.lights.query();
+      console.log(this.drums);
   	});
 
+  }
+
+
+  mousedown(drum) {
+    this.lights.flash(drum);
   }
 
 }
