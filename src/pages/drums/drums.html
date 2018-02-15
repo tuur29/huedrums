@@ -9,7 +9,7 @@
 <ion-content padding>
 
 	<div class="list">
-		<button ion-button *ngFor="let drum of drums" 
+		<button ion-button mode="md" outline *ngFor="let drum of drums" 
 			(mousedown)="mousedown(drum)" >
 			{{ drum.name }}
 		</button>
