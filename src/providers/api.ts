@@ -4,7 +4,6 @@ import { Storage } from '@ionic/storage';
 
 import { LoadingController, ToastController, AlertController } from 'ionic-angular';
 
-// TODO: improve login experience by using bridge button
 
 @Injectable()
 export class Api {
