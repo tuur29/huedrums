@@ -2,20 +2,22 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { AndroidFullScreen } from '@ionic-native/android-full-screen';
 
 import { DrumsPage } from '../pages/drums/drums';
+
+
 @Component({
   templateUrl: 'app.html'
 })
 export class HueDrumsApp {
   rootPage:any = DrumsPage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, androidFullScreen: AndroidFullScreen) {
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
+      statusBar.styleBlackTranslucent();
       splashScreen.hide();
+      androidFullScreen.showUnderSystemUI();
     });
   }
 }
