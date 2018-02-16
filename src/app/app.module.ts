@@ -12,11 +12,13 @@ import { Lights } from '../providers/lights';
 
 import { HueDrumsApp } from './app.component';
 import { DrumsPage } from '../pages/drums/drums';
+import { DrumDirective } from '../directives/drum/drum';
 
 @NgModule({
   declarations: [
     HueDrumsApp,
-    DrumsPage
+    DrumsPage,
+    DrumDirective
   ],
   imports: [
     BrowserModule,

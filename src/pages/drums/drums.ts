@@ -24,9 +24,4 @@ export class DrumsPage {
 
   }
 
-
-  mousedown(drum) {
-    this.lights.flash(drum);
-  }
-
 }
