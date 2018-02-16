@@ -14,7 +14,7 @@
 
 	<div class="list">
 		<button ion-button mode="md" outline [move]="moveDrums"
-			*ngFor="let drum of drums" [drum]="moveDrums ? false : drum">
+			*ngFor="let drum of drums" [drum]="drum">
 			{{ drum.name }}
 		</button>
 	</div>

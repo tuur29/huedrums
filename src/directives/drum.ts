@@ -10,6 +10,7 @@ import { Lights } from '../providers/lights';
 export class DrumDirective {
 
   @Input() drum;
+  @Input() move;
 
   clientX: number;
   clientY: number;
@@ -35,7 +36,7 @@ export class DrumDirective {
 
   @HostListener('touchstart', ['$event'])
   onMouseDown(event: any): void {
-    if (!this.drum) return;
+    if (this.move) return;
 
     this.clientX = event.touches[0].clientX;
     this.clientY = event.touches[0].clientY;
@@ -44,13 +45,13 @@ export class DrumDirective {
 
   @HostListener('touchend', ['$event'])
   onMouseUp(event: any): void {
-    if (!this.drum) return;
+    if (this.move) return;
 
     this.lights.toggle(this.drum);
   }
 
   onTouchMove(event: any): void {
-    if (!this.drum) return;
+    if (this.move) return;
 
     let deltaX = event.changedTouches[0].clientX - this.clientX;
     let deltaY = event.changedTouches[0].clientY - this.clientY;
