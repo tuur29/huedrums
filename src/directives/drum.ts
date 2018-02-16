@@ -62,8 +62,8 @@ export class DrumDirective {
     let deltaX = event.changedTouches[0].clientX - this.clientX;
     let deltaY = event.changedTouches[0].clientY - this.clientY;
 
-    let bri = this.convertRatio((-deltaY*1.5) / this.height, 254);
-    let hue = this.convertRatio(deltaX*1.5 / this.width, 65534);
+    let bri = this.convertRatio((-deltaY*2.5) / this.height, 254);
+    let hue = this.convertRatio(deltaX*2.5 / this.width, 65534);
 
     this.lights.changeSettings(this.drum, bri, hue);
   }

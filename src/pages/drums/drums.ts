@@ -28,9 +28,21 @@ export class DrumsPage {
 
   refresh() {
     this.lights.refresh().then(() => {
+      this.moveDrums = false;
+      this.toggleOnStates = false;
       this.drums = this.lights.query();
       console.log(this.drums);
     });
+  }
+
+  moveDrumsToggle() {
+    this.moveDrums = !this.moveDrums;
+    this.toggleOnStates = false;
+  }
+
+  toggleOnStatesToggle() {
+    this.toggleOnStates = !this.toggleOnStates;
+    this.moveDrums = false;
   }
 
 }
