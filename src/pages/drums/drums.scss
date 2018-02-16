@@ -24,6 +24,12 @@
 
 page-drums {
 
+	.move {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+
 	.list {
 		display: flex;
 		flex-flow: row wrap;
@@ -34,7 +40,7 @@ page-drums {
 		width: 100%;
 	}
 
-	.button-md {
+	.button-md[outline] {
 		flex: 1 0 10%;
 		max-width: 25%;
 		height: unset;

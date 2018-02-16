@@ -8,9 +8,13 @@
 
 <ion-content padding>
 
+	<button class="move" ion-button clear icon-only (click)="moveDrums = !moveDrums">
+		<ion-icon name="move"></ion-icon>
+	</button>
+
 	<div class="list">
-		<button ion-button mode="md" outline
-			*ngFor="let drum of drums" [drum]="drum">
+		<button ion-button mode="md" outline [move]="moveDrums"
+			*ngFor="let drum of drums" [drum]="moveDrums ? false : drum">
 			{{ drum.name }}
 		</button>
 	</div>

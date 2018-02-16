@@ -45,4 +45,36 @@ export class Lights {
 
   }
 
+  toggle(light) {
+    let url = 'lights/'+light.id+'/state';
+    this.prepareLight(light);
+
+    light.state.on = !light.state.on;
+    this.api.put(url, light.state).subscribe();
+  }
+
+  changeSettings(light, bri: number, hue?: number) {
+
+    let url = 'lights/'+light.id+'/state';
+    this.prepareLight(light, 1);
+
+    delete light.state.xy;
+    delete light.state.ct;
+    delete light.state.colormode;
+
+    light.state.sat = 254;
+    light.state.bri = Math.round(bri);
+    if (hue)
+      light.state.hue = Math.round(hue);
+
+    this.api.put(url, light.state).subscribe();
+  }
+
+  private prepareLight(light, transitiontime?: number) {
+    delete light.state.alert;
+    delete light.state.effect;
+    delete light.state.reachable;
+    light.state.transitiontime = transitiontime?transitiontime:0;
+  }
+
 }

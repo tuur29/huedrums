@@ -11,6 +11,7 @@ import { Lights } from '../../providers/lights';
 export class DrumsPage {
 
   drums: any;
+  moveDrums: boolean = false;
 
   constructor(
   	public navCtrl: NavController,
