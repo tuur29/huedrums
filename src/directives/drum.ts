@@ -39,8 +39,6 @@ export class DrumDirective {
   onMouseDown(event: any): void {
     if (this.move) return;
 
-    event.preventDefault();
-
     this.clientX = event.touches[0].clientX;
     this.clientY = event.touches[0].clientY;
     this.lights.toggle(this.drum);

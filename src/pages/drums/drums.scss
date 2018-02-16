@@ -12,7 +12,7 @@
     padding-top: ($height / $width) * 100%;
   }
 
-  > * {
+  > *:not(.button-effect) {
     position: absolute;
     top: 0;
     left: 0;
@@ -29,6 +29,11 @@ page-drums {
 		top: 0;
 		right: 0;
 		padding: 5px;
+	}
+
+	.buttons button {
+		color: white;
+		opacity: 0.3;
 	}
 
 	.list {

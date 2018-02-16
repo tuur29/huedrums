@@ -9,10 +9,10 @@
 <ion-content>
 
 	<div class="buttons">
-		<button class="move" ion-button clear icon-only (click)="toggleOnStatesToggle()">
+		<button ion-button clear [style.opacity]="toggleOnStates ? 1 : '0.3'" icon-only (click)="toggleOnStatesToggle()">
 			<ion-icon name="bulb" [isActive]="toggleOnStates"></ion-icon>
 		</button>
-		<button ion-button clear icon-only (click)="moveDrumsToggle()">
+		<button ion-button clear [style.opacity]="moveDrums ? 1 : '0.3'" icon-only (click)="moveDrumsToggle()">
 			<ion-icon name="move" [isActive]="moveDrums"></ion-icon>
 		</button>
 		<button ion-button clear icon-only (click)="refresh()">
