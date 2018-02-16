@@ -22,8 +22,15 @@ export class DrumsPage {
   	this.lights.onReady().then(() => {
       this.drums = this.lights.query();
       console.log(this.drums);
-  	});
+    });
 
+  }
+
+  refresh() {
+    this.lights.refresh().then(() => {
+      this.drums = this.lights.query();
+      console.log(this.drums);
+    });
   }
 
 }

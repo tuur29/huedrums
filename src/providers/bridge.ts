@@ -27,7 +27,7 @@ export class Bridge {
     return this.ready;
   }
 
-  getLights() {
+  getLights(force?: boolean) {
     let array = [];
     for (let key in this.bridge.lights) {
       let light = this.bridge.lights[key];
@@ -37,9 +37,9 @@ export class Bridge {
     return array;
   }
 
-  private query() {
+  query(force?: boolean) {
 
-    if (this.bridge) return Observable.of(this.bridge);
+    if (this.bridge && !force) return Observable.of(this.bridge);
 
     let loader = this.api.showLoader();
     return this.api.get('').map((d: any) => {

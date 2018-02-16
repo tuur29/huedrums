@@ -30,6 +30,14 @@ export class Lights {
     return this.bridge.getLights();
   }
 
+  refresh() {
+    return new Promise((resolve, reject) => {
+      this.bridge.query(true).subscribe(() => {
+        resolve();
+      });
+    });
+  }
+
   flash(light) {
     let url = 'lights/'+light.id+'/state';
 
