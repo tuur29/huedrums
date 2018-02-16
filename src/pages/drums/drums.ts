@@ -12,6 +12,7 @@ export class DrumsPage {
 
   drums: any;
   moveDrums: boolean = false;
+  toggleOnStates: boolean = false;
 
   constructor(
   	public navCtrl: NavController,

@@ -8,13 +8,18 @@
 
 <ion-content>
 
-	<button class="move" ion-button clear icon-only (click)="moveDrums = !moveDrums">
-		<ion-icon name="move"></ion-icon>
-	</button>
+	<div class="buttons">
+		<button class="move" ion-button clear icon-only (click)="toggleOnStates = !toggleOnStates">
+			<ion-icon name="bulb" [isActive]="toggleOnStates"></ion-icon>
+		</button>
+		<button ion-button clear icon-only (click)="moveDrums = !moveDrums">
+			<ion-icon name="move" [isActive]="moveDrums"></ion-icon>
+		</button>
+	</div>
 
 	<div class="list">
-		<button ion-button mode="md" outline [move]="moveDrums"
-			*ngFor="let drum of drums" [drum]="drum">
+		<button ion-button mode="md" outline *ngFor="let drum of drums"
+			[drum]="drum" [move]="moveDrums" [toggle]="toggleOnStates">
 			{{ drum.name }}
 		</button>
 	</div>
