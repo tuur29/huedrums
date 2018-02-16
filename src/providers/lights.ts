@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
 
 import { Api } from './api';
 import { Bridge } from './bridge';
