@@ -93,23 +93,49 @@ export class Api {
   private getApiKey(ip: string, resolve) {
     this.showAlert(ip).then((data: any) => {
 
-      this.apikey = data.apikey;
-      this.ip = data.ip;
+      if (data[0].error) {
+        this.showToast(data[0].error.description, 5000);
+        this.getApiKey(ip, resolve);
+        
+      } else {
+        this.apikey = data[0].success.username;
+        this.storage.set("_config", {ip: this.ip, apikey: this.apikey});
+        resolve();
+      }
 
-      this.get('').subscribe((d) => {
-        if (d[0]) {
-          this.showToast(d[0].error.description, 5000);
-          this.getApiKey(ip, resolve);
-          
-        } else {
-          this.storage.set("_config", data);
-          resolve();
-        }
-      });
     });
   }
 
   showAlert(ip?: string) {
+    if (!ip) return this.showManualAlert(ip);
+    this.ip = ip;
+    return new Promise((resolve, reject) => {
+
+      let alert = this.alertCtrl.create({
+        title: 'Allow application',
+        message: "Press the button on your hue bridge to allow this application and press the 'Authenticate' button below.",
+        buttons: [
+          {
+            text: 'Enter details manually',
+            handler: data => {
+              this.showManualAlert(ip).then((d) => resolve(d))
+            }
+          },
+          {
+            text: 'Authenticate',
+            handler: data => {
+              this.post('', { devicetype: "huedrums#"+Math.floor(Date.now()/1000) })
+                .subscribe(d => resolve(d));
+            }
+          }
+        ]
+      });
+      alert.present();
+
+    });
+  }
+
+  showManualAlert(ip?: string) {
     return new Promise((resolve, reject) => {
 
       let alert = this.alertCtrl.create({
@@ -127,9 +153,25 @@ export class Api {
         ],
         buttons: [
           {
+            text: 'Cancel', 
+            handler: data => {
+              this.showAlert(ip).then((data) => resolve(data))
+            }
+          },
+          {
             text: 'Authenticate',
             handler: data => {
-              resolve(data);
+
+              this.apikey = data.apikey;
+              this.ip = data.ip;
+
+              this.get('').subscribe((d) => {
+                if (d[0]) {
+                  resolve(d);
+                } else {
+                  resolve([{success: {username: data.apikey}}]);
+                }
+              });
             }
           }
         ]
