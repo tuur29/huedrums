@@ -13,7 +13,7 @@
 		</button>
 	</div>
 
-	<div class="list">
+	<div class="list" (touchstart)="strobe($event)" (touchend)="endStrobe($event)">
 		<button ion-button mode="md" outline *ngFor="let drum of drums"
 			[drum]="drum" [move]="moveDrums" [toggle]="toggleOnStates">
 			{{ drum.name }}
