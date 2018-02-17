@@ -4,7 +4,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { AndroidFullScreen } from '@ionic-native/android-full-screen';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { Api } from '../providers/api';
@@ -40,7 +39,6 @@ import { MoveableDirective } from '../directives/moveable';
     Lights,
     StatusBar,
     SplashScreen,
-    AndroidFullScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
