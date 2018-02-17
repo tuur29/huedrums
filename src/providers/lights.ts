@@ -48,7 +48,7 @@ export class Lights {
     this.api.put(url, {on: !light.state.on, transitiontime: 0}).subscribe(() => {
       light.state.transitiontime = 0;
       setTimeout(() => {
-        this.api.put(url, light.state).subscribe();
+        this.api.put(url, light.state).timeout(500).subscribe();
       }, 100);
     });
 
@@ -63,7 +63,7 @@ export class Lights {
       bri: light.state.bri,
       transitiontime: 0
     };
-    this.api.put(url, state).subscribe();
+    this.api.put(url, state).timeout(500).subscribe();
   }
 
   changeSettings(light, bri: number, hue?: number) {
@@ -81,7 +81,7 @@ export class Lights {
       hue: hue ? Math.round(hue) : 0,
       transitiontime: 1
     };
-    this.api.put(url, state).subscribe();
+    this.api.put(url, state).timeout(500).subscribe();
   }
 
 }
