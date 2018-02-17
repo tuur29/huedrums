@@ -26,7 +26,11 @@ export class Lights {
   }
 
   query() {
-    return this.bridge.getLights();
+    let lights = this.bridge.getLights();
+    lights.forEach((light) => {
+      light.state.bri > 1 ? light.state.bri : Math.round(255/2);
+    });
+    return lights
   }
 
   refresh() {
@@ -44,9 +48,7 @@ export class Lights {
     this.api.put(url, {on: !light.state.on, transitiontime: 0}).subscribe(() => {
       light.state.transitiontime = 0;
       setTimeout(() => {
-        this.api.put(url, light.state).subscribe(() => {
-          console.log("drum done");
-        });
+        this.api.put(url, light.state).subscribe();
       }, 100);
     });
 
@@ -58,7 +60,7 @@ export class Lights {
 
     let state = {
       on: light.state.on,
-      bri: light.state.bri > 1?light.state.bri:Math.round(255/2),
+      bri: light.state.bri,
       transitiontime: 0
     };
     this.api.put(url, state).subscribe();

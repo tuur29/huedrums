@@ -1,6 +1,6 @@
 # TODO
 
-- Brigthness not remembered
+- 
 - Add multitouch support for dragging drums to change settings
 - Add strobe screen effect when pressing next to drums
 - Reset drums position on rotate
