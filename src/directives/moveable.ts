@@ -1,4 +1,5 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 
 @Directive({
@@ -14,11 +15,17 @@ export class MoveableDirective {
   clientY: number;
 
   constructor(
-    public el: ElementRef
+    public el: ElementRef,
+    private screenOrientation: ScreenOrientation
   ) {
     this.el.nativeElement.style.position = "relative";
     this.el.nativeElement.style.top = 0;
     this.el.nativeElement.style.left = 0;
+
+    this.screenOrientation.onChange().subscribe(() => {
+      this.el.nativeElement.style.top = 0;
+      this.el.nativeElement.style.left = 0;
+    });
   }
 
   @HostListener('touchstart', ['$event'])
