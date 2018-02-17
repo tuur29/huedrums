@@ -40,7 +40,8 @@ export class DrumsPage {
 
   strobe(event) {
     if (event.target.classList.contains("list")) {
-      let count = 0;
+      event.target.style.background = "#fff";
+      let count = 1;
       this.strobeLoop = setInterval(() => {
         event.target.style.background = count%2 ? "#fff" : "unset";
         count++;
