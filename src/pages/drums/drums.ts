@@ -13,6 +13,7 @@ export class DrumsPage {
   drums: any;
   moveDrums: boolean = false;
   toggleOnStates: boolean = false;
+  lockSettings: boolean = false;
   strobeLoop;
 
   constructor(
@@ -31,6 +32,7 @@ export class DrumsPage {
     this.lights.refresh().then(() => {
       this.moveDrums = false;
       this.toggleOnStates = false;
+      this.lockSettings = false;
       this.drums = this.lights.query();
       console.log(this.drums);
     });
@@ -56,11 +58,19 @@ export class DrumsPage {
   moveDrumsToggle() {
     this.moveDrums = !this.moveDrums;
     this.toggleOnStates = false;
+    this.lockSettings = false;
   }
 
   toggleOnStatesToggle() {
     this.toggleOnStates = !this.toggleOnStates;
     this.moveDrums = false;
+    this.lockSettings = false;
+  }
+
+  lockSettingsToggle() {
+    this.lockSettings = !this.lockSettings;
+    this.moveDrums = false;
+    this.toggleOnStates = false;
   }
 
 }

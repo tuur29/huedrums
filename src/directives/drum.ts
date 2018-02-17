@@ -12,6 +12,7 @@ export class DrumDirective {
   @Input() drum;
   @Input() move = false;
   @Input() toggle = false;
+  @Input() lock = false;
 
   clientX: number;
   clientY: number;
@@ -54,6 +55,7 @@ export class DrumDirective {
 
   onTouchMove(event: any): void {
     if (this.move) return;
+    if (this.lock) return;
 
     event.preventDefault();
 
