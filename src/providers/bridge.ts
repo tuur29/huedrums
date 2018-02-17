@@ -31,6 +31,8 @@ export class Bridge {
     let array = [];
     for (let key in this.bridge.lights) {
       let light = this.bridge.lights[key];
+      if (!light.state.on)
+        light.state.bri = Math.round(255/2);
       light.id = key;
       array.push(light);
     }

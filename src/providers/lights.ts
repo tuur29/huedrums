@@ -26,11 +26,7 @@ export class Lights {
   }
 
   query() {
-    let lights = this.bridge.getLights();
-    lights.forEach((light) => {
-      light.state.bri > 1 ? light.state.bri : Math.round(255/2);
-    });
-    return lights
+    return this.bridge.getLights();
   }
 
   refresh() {
