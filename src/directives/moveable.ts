@@ -14,6 +14,8 @@ export class MoveableDirective {
   clientX: number;
   clientY: number;
 
+  fingerID;
+
   constructor(
     public el: ElementRef,
     private screenOrientation: ScreenOrientation
@@ -33,9 +35,11 @@ export class MoveableDirective {
 
     if (!this.move) return;
 
+    this.fingerID = event.touches.length-1;
+
     event.preventDefault();
-    this.clientX = event.touches[0].clientX;
-    this.clientY = event.touches[0].clientY;
+    this.clientX = event.touches[this.fingerID].clientX;
+    this.clientY = event.touches[this.fingerID].clientY;
 
     let x = parseInt(this.el.nativeElement.style.left.replace("px",""));
     let y = parseInt(this.el.nativeElement.style.top.replace("px",""));
@@ -48,10 +52,11 @@ export class MoveableDirective {
   onPan(event: any): void {
 
     if (!this.move) return;
+    if (!event.changedTouches[this.fingerID]) return;
 
     event.preventDefault();
-    let deltaX = event.changedTouches[0].clientX - this.clientX;
-    let deltaY = event.changedTouches[0].clientY - this.clientY;
+    let deltaX = event.changedTouches[this.fingerID].clientX - this.clientX;
+    let deltaY = event.changedTouches[this.fingerID].clientY - this.clientY;
     
     this.el.nativeElement.style.top = this.startY + deltaY + "px";
     this.el.nativeElement.style.left = this.startX + deltaX + "px";
