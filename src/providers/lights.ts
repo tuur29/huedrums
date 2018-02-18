@@ -63,9 +63,9 @@ export class Lights {
 
     if (light.state.on)
       if (light.type.toLowerCase().indexOf("color") > -1)
-        state.hue = light.state.hue;
+        state['hue'] = light.state.hue;
       else if (light.type.toLowerCase().indexOf("temperature") > -1)
-        state.ct = light.state.hue;
+        state['ct'] = light.state.hue;
 
     this.api.put(url, state).timeout(500).onErrorResumeNext(Observable.empty()).subscribe();
   }
@@ -87,10 +87,10 @@ export class Lights {
 
     if (light.state.on) {
       if (light.type.toLowerCase().indexOf("color") > -1) {
-        state.hue = hue ? Math.round(hue) : 0;
-        state.sat = 254;
+        state['hue'] = hue ? Math.round(hue) : 0;
+        state['sat'] = 254;
       } else if (light.type.toLowerCase().indexOf("temperature") > -1){
-        state.ct = hue ? Math.round(hue) : 0;
+        state['ct'] = hue ? Math.round(hue) : 0;
       }
     }
 
