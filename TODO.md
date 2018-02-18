@@ -5,5 +5,4 @@
 - Add setting to hide lights
 - Save position of lights
 - Open app in immersive mode
-- Hide scrollbars
 - Check color only changes when light niy on? -> good?
