@@ -60,6 +60,13 @@ export class Lights {
       bri: light.state.bri,
       transitiontime: 0
     };
+
+    if (light.state.on)
+      if (light.type.toLowerCase().indexOf("color") > -1)
+        state.hue = light.state.hue;
+      else if (light.type.toLowerCase().indexOf("temperature") > -1)
+        state.ct = light.state.hue;
+
     this.api.put(url, state).timeout(500).onErrorResumeNext(Observable.empty()).subscribe();
   }
 
@@ -67,17 +74,26 @@ export class Lights {
 
     let url = 'lights/'+light.id+'/state';
 
-    light.state.sat = 254;
     light.state.bri = Math.round(bri);
     if (hue)
       light.state.hue = Math.round(hue);
 
+    if (!light.state.on) return;
+
     let state = {
-      sat: 254,
       bri: Math.round(bri),
-      hue: hue ? Math.round(hue) : 0,
       transitiontime: 1
     };
+
+    if (light.state.on) {
+      if (light.type.toLowerCase().indexOf("color") > -1) {
+        state.hue = hue ? Math.round(hue) : 0;
+        state.sat = 254;
+      } else if (light.type.toLowerCase().indexOf("temperature") > -1){
+        state.ct = hue ? Math.round(hue) : 0;
+      }
+    }
+
     this.api.put(url, state).timeout(500).onErrorResumeNext(Observable.empty()).subscribe();
   }
 
