@@ -3,6 +3,7 @@
 
 You can find all releases here: https://github.com/tuur29/huedrums/releases
 
+![Preview](preview.png) ![Demo](demo.gif)
 
 ### Building
 
