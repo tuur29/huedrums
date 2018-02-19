@@ -75,7 +75,7 @@ export class Lights {
     let url = 'lights/'+light.id+'/state';
 
     light.state.bri = Math.round(bri);
-    if (hue)
+    if (hue != undefined)
       light.state.hue = Math.round(hue);
 
     if (!light.state.on) return;
