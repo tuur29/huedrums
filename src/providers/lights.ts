@@ -85,16 +85,15 @@ export class Lights {
       transitiontime: 1
     };
 
-    if (light.state.on) {
-      if (light.type.toLowerCase().indexOf("color") > -1) {
-        state['hue'] = hue ? Math.round(hue) : 0;
-        state['sat'] = 254;
-      } else if (light.type.toLowerCase().indexOf("temperature") > -1){
-        state['ct'] = hue ? Math.round(hue) : 0;
-      }
+    if (light.type.toLowerCase().indexOf("color") > -1) {
+      state['hue'] = hue ? Math.round(hue) : light.status.hue;
+      state['sat'] = 254;
+    } else if (light.type.toLowerCase().indexOf("temperature") > -1){
+      state['ct'] = hue ? Math.round(hue) : light.status.hue;
     }
 
     this.api.put(url, state).timeout(500).onErrorResumeNext(Observable.empty()).subscribe();
+
   }
 
 }
