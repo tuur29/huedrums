@@ -42,10 +42,10 @@ export class DrumDirective {
   onMouseDown(event: any): void {
     if (this.move) return;
 
-    this.fingerID = event.touches.length-1;
+    this.fingerID = event.targetTouches[event.targetTouches.length-1].identifier;
 
-    this.clientX = event.touches[this.fingerID].clientX;
-    this.clientY = event.touches[this.fingerID].clientY;
+    this.clientX = this.getTouch(event.targetTouches).clientX;
+    this.clientY = this.getTouch(event.targetTouches).clientY;
     this.lights.toggle(this.drum);
   }
 
@@ -60,12 +60,12 @@ export class DrumDirective {
   onTouchMove(event: any): void {
     if (this.move) return;
     if (this.lock) return;
-    if (!event.changedTouches[this.fingerID]) return;
+    if (!this.getTouch(event.changedTouches)) return;
 
     event.preventDefault();
 
-    let deltaX = event.changedTouches[this.fingerID].clientX - this.clientX;
-    let deltaY = event.changedTouches[this.fingerID].clientY - this.clientY;
+    let deltaX = this.getTouch(event.changedTouches).clientX - this.clientX;
+    let deltaY = this.getTouch(event.changedTouches).clientY - this.clientY;
     if (Math.abs(deltaX) < 5 && Math.abs(deltaY) < 5) return;
 
     let bri = this.convertRatio((-deltaY*0.7) / this.height, 254);
@@ -76,6 +76,10 @@ export class DrumDirective {
 
   private convertRatio(ratio: number, limit: number) {
     return Math.min(Math.max(ratio*limit +limit/2, 0), limit);
+  }
+
+  private getTouch(touches: TouchList): Touch {
+    return Array.from(touches).find(t => t.identifier==this.fingerID);
   }
 
 }

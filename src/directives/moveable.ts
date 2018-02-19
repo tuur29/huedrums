@@ -35,11 +35,11 @@ export class MoveableDirective {
 
     if (!this.move) return;
 
-    this.fingerID = event.touches.length-1;
+    this.fingerID = event.targetTouches[event.targetTouches.length-1].identifier;
 
     event.preventDefault();
-    this.clientX = event.touches[this.fingerID].clientX;
-    this.clientY = event.touches[this.fingerID].clientY;
+    this.clientX = this.getTouch(event.targetTouches).clientX;
+    this.clientY = this.getTouch(event.targetTouches).clientY;
 
     let x = parseInt(this.el.nativeElement.style.left.replace("px",""));
     let y = parseInt(this.el.nativeElement.style.top.replace("px",""));
@@ -52,14 +52,18 @@ export class MoveableDirective {
   onPan(event: any): void {
 
     if (!this.move) return;
-    if (!event.changedTouches[this.fingerID]) return;
+    if (!this.getTouch(event.changedTouches)) return;
 
     event.preventDefault();
-    let deltaX = event.changedTouches[this.fingerID].clientX - this.clientX;
-    let deltaY = event.changedTouches[this.fingerID].clientY - this.clientY;
+    let deltaX = this.getTouch(event.changedTouches).clientX - this.clientX;
+    let deltaY = this.getTouch(event.changedTouches).clientY - this.clientY;
     
     this.el.nativeElement.style.top = this.startY + deltaY + "px";
     this.el.nativeElement.style.left = this.startX + deltaX + "px";
+  }
+
+  private getTouch(touches: TouchList): Touch {
+    return Array.from(touches).find(t => t.identifier==this.fingerID);
   }
 
 }

@@ -39,6 +39,7 @@ export class DrumsPage {
   }
 
   strobe(event) {
+    if (this.moveDrums || this.toggleOnStates) return;
     if (event.target.classList.contains("list")) {
       event.target.style.background = "#fff";
       let count = 1;
