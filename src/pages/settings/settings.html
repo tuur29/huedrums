@@ -12,27 +12,51 @@
 <ion-content padding>
 
   <form [formGroup]="form" *ngIf="settingsReady">
-    <ion-list>
-      
-      <ion-item>
-        <ion-label>Transition time:</ion-label>
-        <ion-range min="0" max="10" formControlName="transitiontime">
-          <ion-label range-left>0s</ion-label>
-          <ion-label range-right>1s</ion-label>
-        </ion-range>
-      </ion-item>
 
-    </ion-list>
+    <ion-card>
+      <ion-card-content>
+        <ion-list>
+
+          <ion-item>
+            <ion-range min="0" max="10" formControlName="transitiontime">
+              <ion-label range-left>Transition time: &nbsp; 0s</ion-label>
+              <ion-label range-right>1s</ion-label>
+            </ion-range>
+          </ion-item>
+
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
   </form>
 
-  <button ion-button (click)="refresh()">
-    <ion-icon name="refresh"></ion-icon>&nbsp;
-    Refresh Lamps and their settings
-  </button>
+  <ion-card>
+    <ion-card-header>Hide lamps</ion-card-header>
 
-  <button ion-button color="danger" (click)="logout()">
-    <ion-icon name="exit"></ion-icon>&nbsp;
-    Logout from Hue Bridge
-  </button>
+    <ion-card-content>
+      <ion-list>
+        
+        <ion-item *ngFor="let light of lights">
+          <ion-label>{{light.name}}</ion-label>
+          <ion-toggle (ionChange)="checkHidden($event, light.uniqueid)" [checked]="settings.all.hiddendrums.indexOf(light.uniqueid)> -1"></ion-toggle>
+        </ion-item>
+
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <button ion-button (click)="refresh()">
+        <ion-icon name="refresh"></ion-icon>&nbsp;
+        Refresh Lamps and their settings
+      </button>
+
+      <button ion-button color="danger" (click)="logout()">
+        <ion-icon name="exit"></ion-icon>&nbsp;
+        Logout from Hue Bridge
+      </button>
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>

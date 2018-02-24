@@ -2,13 +2,13 @@
 <ion-content>
 
 	<div class="buttons">
-		<button tooltip="Toggle status of lamp" navTooltip event="press" ion-button clear [style.opacity]="toggleOnStates ? 1 : ''" icon-only (click)="toggleOnStatesToggle()">
+		<button tooltip="Toggle status of lamp" navTooltip event="press" ion-button clear [style.opacity]="toggleOnStates ? 0.8 : ''" icon-only (click)="toggleOnStatesToggle()">
 			<ion-icon name="bulb" [isActive]="toggleOnStates"></ion-icon>
 		</button>
-		<button tooltip="Move drums" navTooltip event="press" ion-button clear [style.opacity]="moveDrums ? 1 : ''" icon-only (click)="moveDrumsToggle()">
+		<button tooltip="Move drums" navTooltip event="press" ion-button clear [style.opacity]="moveDrums ? 0.8 : ''" icon-only (click)="moveDrumsToggle()">
 			<ion-icon name="move" [isActive]="moveDrums"></ion-icon>
 		</button>
-		<button tooltip="Lock color and brightness" navTooltip event="press" ion-button clear [style.opacity]="lockSettings ? 1 : ''" icon-only (click)="lockSettingsToggle()">
+		<button tooltip="Lock color and brightness" navTooltip event="press" ion-button clear [style.opacity]="lockSettings ? 0.8 : ''" icon-only (click)="lockSettingsToggle()">
 			<ion-icon name="lock" [isActive]="lockSettings"></ion-icon>
 		</button>
 		<button tooltip="Settings" navTooltip event="press" ion-button clear icon-only (click)="openSettings()">

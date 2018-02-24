@@ -31,7 +31,12 @@ export class DrumsPage {
   }
 
   openSettings() {
-    this.navCtrl.push('SettingsPage');
+    this.navCtrl.push('SettingsPage', {
+      callback: (val) => {
+        if (val)
+          this.refresh()
+      }
+    });
   }
 
   refresh() {

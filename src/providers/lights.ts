@@ -26,8 +26,15 @@ export class Lights {
     return this.ready;
   }
 
-  query() {
-    return this.bridge.getLights();
+  query(forceAll?: boolean) {
+    // TODO: filter lights base on hiddendrums setting
+
+    return this.bridge.getLights().filter((l) => {
+      if (!forceAll)
+        if (this.settings.all.hiddendrums.indexOf(l.uniqueid) > -1)
+          return false;
+      return true
+    });
   }
 
   refresh() {
