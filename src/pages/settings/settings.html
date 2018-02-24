@@ -1,0 +1,38 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Settings</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <form [formGroup]="form" *ngIf="settingsReady">
+    <ion-list>
+      
+      <ion-item>
+        <ion-label>Transition time:</ion-label>
+        <ion-range min="0" max="10" formControlName="transitiontime">
+          <ion-label range-left>0s</ion-label>
+          <ion-label range-right>1s</ion-label>
+        </ion-range>
+      </ion-item>
+
+    </ion-list>
+  </form>
+
+  <button ion-button (click)="refresh()">
+    <ion-icon name="refresh"></ion-icon>&nbsp;
+    Refresh Lamps and their settings
+  </button>
+
+  <button ion-button color="danger" (click)="logout()">
+    <ion-icon name="exit"></ion-icon>&nbsp;
+    Logout from Hue Bridge
+  </button>
+
+</ion-content>

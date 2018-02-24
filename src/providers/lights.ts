@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Rx';
 
 import { Api } from './api';
 import { Bridge } from './bridge';
+import { Settings } from './settings';
 
 
 @Injectable()
@@ -12,14 +13,13 @@ export class Lights {
 
   constructor(
     public api: Api,
-    public bridge: Bridge
+    public bridge: Bridge,
+    public settings: Settings
   ) {
-
-    this.ready = new Promise((resolve, reject) => {
-      this.bridge.onReady().then(() => {
-        resolve();
-      });
-    });
+    this.ready = Promise.all([
+      this.bridge.onReady(),
+      this.settings.load()
+    ]);
   }
 
   onReady() {
@@ -42,8 +42,8 @@ export class Lights {
     let url = 'lights/'+light.id+'/state';
 
     // this.api.put(url, {alert: "none"}).subscribe();
-    this.api.put(url, {on: !light.state.on, transitiontime: 0}).subscribe(() => {
-      light.state.transitiontime = 0;
+    this.api.put(url, {on: !light.state.on, transitiontime: this.settings.all.transitiontime}).subscribe(() => {
+      light.state.transitiontime = this.settings.all.transitiontime;
       setTimeout(() => {
         this.api.put(url, light.state).timeout(500).onErrorResumeNext(Observable.empty()).subscribe();
       }, 100);
@@ -58,7 +58,7 @@ export class Lights {
     let state = {
       on: light.state.on,
       bri: light.state.bri,
-      transitiontime: 0
+      transitiontime: this.settings.all.transitiontime
     };
 
     if (light.state.on)
@@ -82,14 +82,14 @@ export class Lights {
 
     let state = {
       bri: Math.round(bri),
-      transitiontime: 1
+      transitiontime: 2
     };
 
     if (light.type.toLowerCase().indexOf("color") > -1) {
-      state['hue'] = hue ? Math.round(hue) : light.status.hue;
+      state['hue'] = hue ? Math.round(hue) : light.state.hue;
       state['sat'] = 254;
     } else if (light.type.toLowerCase().indexOf("temperature") > -1){
-      state['ct'] = hue ? Math.round(hue) : light.status.hue;
+      state['ct'] = hue ? Math.round(hue) : light.state.hue;
     }
 
     this.api.put(url, state).timeout(500).onErrorResumeNext(Observable.empty()).subscribe();

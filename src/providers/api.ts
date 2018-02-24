@@ -44,6 +44,14 @@ export class Api {
 
   }
 
+  logout() {
+    return new Promise((resolve, reject) => {
+      this.apikey = '';
+      this.ip = '';
+      this.storage.remove("_config").then(() => resolve() );
+    });
+  }
+
   onReady() {
     return this.ready;
   }

@@ -11,8 +11,8 @@
 		<button tooltip="Lock color and brightness" navTooltip event="press" ion-button clear [style.opacity]="lockSettings ? 1 : ''" icon-only (click)="lockSettingsToggle()">
 			<ion-icon name="lock" [isActive]="lockSettings"></ion-icon>
 		</button>
-		<button tooltip="Refresh drums and their settings" navTooltip event="press" ion-button clear icon-only (click)="refresh()">
-			<ion-icon name="refresh"></ion-icon>
+		<button tooltip="Settings" navTooltip event="press" ion-button clear icon-only (click)="openSettings()">
+			<ion-icon name="settings"></ion-icon>
 		</button>
 	</div>
 

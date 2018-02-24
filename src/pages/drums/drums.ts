@@ -28,6 +28,10 @@ export class DrumsPage {
 
   }
 
+  openSettings() {
+    this.navCtrl.push('SettingsPage');
+  }
+
   refresh() {
     this.lights.refresh().then(() => {
       this.moveDrums = false;
