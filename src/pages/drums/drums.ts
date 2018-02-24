@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import { Lights } from '../../providers/lights';
@@ -15,8 +15,10 @@ export class DrumsPage {
   toggleOnStates: boolean = false;
   lockSettings: boolean = false;
   strobeLoop;
+  strobecolor: number = 0;
 
   constructor(
+    public el: ElementRef,
   	public navCtrl: NavController,
   	public lights: Lights
   ) {
@@ -45,14 +47,20 @@ export class DrumsPage {
   strobe(event) {
     if (this.moveDrums || this.toggleOnStates) return;
     if (event.target.classList.contains("list")) {
-      event.target.style.background = "#fff";
+      event.target.style.background = this.getStrobeColor();
       let count = 1;
       clearInterval(this.strobeLoop);
       this.strobeLoop = setInterval(() => {
-        event.target.style.background = count%2 ? "#fff" : "unset";
+        event.target.style.background = count%2 ? this.getStrobeColor() : "unset";
         count++;
       }, 50);
     }
+  }
+
+  editStrobe(event) {
+    if (this.moveDrums || this.toggleOnStates || this.lockSettings) return;
+    let percent = Math.round(360*event.changedTouches[0].clientX / this.el.nativeElement.offsetWidth);
+    this.strobecolor = Math.max(0, Math.min(360, percent));
   }
 
   endStrobe(event) {
@@ -78,6 +86,10 @@ export class DrumsPage {
     this.lockSettings = !this.lockSettings;
     this.moveDrums = false;
     this.toggleOnStates = false;
+  }
+
+  private getStrobeColor() {
+    return "hsl("+ this.strobecolor +",100%, "+(this.strobecolor?"50":"100")+"%)";
   }
 
 }
