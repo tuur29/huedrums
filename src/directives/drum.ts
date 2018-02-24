@@ -14,13 +14,7 @@ export class DrumDirective {
   @Input() toggle = false;
   @Input() lock = false;
 
-  clientX: number;
-  clientY: number;
-
   fingerID;
-
-  height: number;
-  width: number;
 
   constructor(
     public el: ElementRef,
@@ -28,9 +22,6 @@ export class DrumDirective {
   ) { }
 
   ngAfterViewInit() {  
-    this.height = this.el.nativeElement.offsetHeight;
-    this.width = this.el.nativeElement.offsetWidth;
-
     Observable.fromEvent(this.el.nativeElement, 'touchmove')
       .throttleTime(500)
       .subscribe((event) => {
@@ -43,9 +34,6 @@ export class DrumDirective {
     if (this.move) return;
 
     this.fingerID = event.targetTouches[event.targetTouches.length-1].identifier;
-
-    this.clientX = this.getTouch(event.targetTouches).clientX;
-    this.clientY = this.getTouch(event.targetTouches).clientY;
     this.lights.toggle(this.drum);
   }
 
@@ -55,6 +43,7 @@ export class DrumDirective {
     if (this.toggle) return;
 
     this.lights.toggle(this.drum);
+    this.hideBounds();
   }
 
   onTouchMove(event: any): void {
@@ -64,14 +53,32 @@ export class DrumDirective {
 
     event.preventDefault();
 
-    let deltaX = this.getTouch(event.changedTouches).clientX - this.clientX;
-    let deltaY = this.getTouch(event.changedTouches).clientY - this.clientY;
+    this.showBounds();
+
+    let deltaX = this.getTouch(event.changedTouches).clientX - this.getCenter().x;
+    let deltaY = -(this.getTouch(event.changedTouches).clientY - this.getCenter().y);
     if (Math.abs(deltaX) < 5 && Math.abs(deltaY) < 5) return;
 
-    let bri = this.convertRatio((-deltaY*0.7) / this.height, 254);
-    let hue = this.convertRatio(deltaX*0.8 / this.width, 65534);
+    let bri = this.convertRatio(deltaY*0.8 / this.el.nativeElement.offsetHeight, 254);
+    let hue = this.convertRatio(deltaX*0.8 / this.el.nativeElement.offsetWidth, 65534);
 
     this.lights.changeSettings(this.drum, bri, hue);
+  }
+
+  private showBounds() {
+    this.el.nativeElement.style.outline = "1px solid rgba(255,255,255,0.25)";
+    this.el.nativeElement.style.outlineOffset = (this.el.nativeElement.offsetWidth*0.15) +"px";
+  }
+
+  private hideBounds() {
+    this.el.nativeElement.style.outline = "none";
+  }
+
+  private getCenter() {
+    return {
+      x: this.el.nativeElement.offsetWidth / 2 + this.el.nativeElement.offsetLeft,
+      y: this.el.nativeElement.offsetHeight / 2 + this.el.nativeElement.offsetTop
+    }
   }
 
   private convertRatio(ratio: number, limit: number) {
