@@ -19,6 +19,7 @@ import { HueDrumsApp } from './app.component';
 import { DrumsPage } from '../pages/drums/drums';
 import { DrumDirective } from '../directives/drum';
 import { MoveableDirective } from '../directives/moveable';
+import { ResizableDirective } from '../directives/resizable';
 
 export function provideSettings(storage: Storage) {
   return new Settings(storage, {
@@ -33,7 +34,8 @@ export function provideSettings(storage: Storage) {
     HueDrumsApp,
     DrumsPage,
     DrumDirective,
-    MoveableDirective
+    MoveableDirective,
+    ResizableDirective
   ],
   imports: [
     BrowserModule,

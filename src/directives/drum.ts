@@ -11,6 +11,7 @@ export class DrumDirective {
 
   @Input() drum;
   @Input() move = false;
+  @Input() resize = false;
   @Input() toggle = false;
   @Input() lock = false;
 
@@ -31,7 +32,7 @@ export class DrumDirective {
 
   @HostListener('touchstart', ['$event'])
   onMouseDown(event: any): void {
-    if (this.move) return;
+    if (this.move || this.resize) return;
 
     this.fingerID = event.targetTouches[event.targetTouches.length-1].identifier;
     this.lights.toggle(this.drum);
@@ -39,35 +40,32 @@ export class DrumDirective {
 
   @HostListener('touchend', ['$event'])
   onMouseUp(event: any): void {
-    if (this.move) return;
-    if (this.toggle) return;
+    if (this.move || this.resize || this.toggle) return;
 
     this.lights.toggle(this.drum);
-    this.hideBounds();
   }
 
   onTouchMove(event: any): void {
-    if (this.move) return;
-    if (this.lock) return;
+    if (this.move || this.resize || this.toggle || this.lock) return;
     if (!this.getTouch(event.changedTouches)) return;
 
     event.preventDefault();
-
-    this.showBounds();
 
     let deltaX = this.getTouch(event.changedTouches).clientX - this.getCenter().x;
     let deltaY = -(this.getTouch(event.changedTouches).clientY - this.getCenter().y);
     if (Math.abs(deltaX) < 5 && Math.abs(deltaY) < 5) return;
 
-    let bri = this.convertRatio(deltaY*0.8 / this.el.nativeElement.offsetHeight, 254);
-    let hue = this.convertRatio(deltaX*0.8 / this.el.nativeElement.offsetWidth, 65534);
+    let bri = this.convertRatio(deltaY / this.getHeight(), 254);
+    let hue = this.convertRatio(deltaX / this.getWidth(), 65534);
+
+    console.log(deltaX,hue);
 
     this.lights.changeSettings(this.drum, bri, hue);
   }
 
   private showBounds() {
     this.el.nativeElement.style.outline = "1px solid rgba(255,255,255,0.25)";
-    this.el.nativeElement.style.outlineOffset = (this.el.nativeElement.offsetWidth*0.15) +"px";
+    this.el.nativeElement.style.outlineOffset = (this.getWidth()*0.15) +"px";
   }
 
   private hideBounds() {
@@ -76,9 +74,25 @@ export class DrumDirective {
 
   private getCenter() {
     return {
-      x: this.el.nativeElement.offsetWidth / 2 + this.el.nativeElement.offsetLeft,
-      y: this.el.nativeElement.offsetHeight / 2 + this.el.nativeElement.offsetTop
+      x: this.getWidth() / 2 + this.getLeft(),
+      y: this.getHeight() / 2 + this.getTop()
     }
+  }
+
+  private getLeft() {
+    return this.el.nativeElement.getBoundingClientRect().x;
+  }
+
+  private getTop() {
+    return this.el.nativeElement.getBoundingClientRect().y;
+  }
+
+  private getWidth() {
+    return this.el.nativeElement.getBoundingClientRect().width;
+  }
+
+  private getHeight() {
+    return this.el.nativeElement.getBoundingClientRect().width;
   }
 
   private convertRatio(ratio: number, limit: number) {

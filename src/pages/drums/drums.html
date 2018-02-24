@@ -5,6 +5,9 @@
 		<button tooltip="Toggle status of lamp" navTooltip event="press" ion-button clear [style.opacity]="toggleOnStates ? 0.8 : ''" icon-only (click)="toggleOnStatesToggle()">
 			<ion-icon name="bulb" [isActive]="toggleOnStates"></ion-icon>
 		</button>
+		<button tooltip="Resize drums" navTooltip event="press" ion-button clear [style.opacity]="resizeDrums ? 0.8 : ''" icon-only (click)="resizeDrumsToggle()">
+			<ion-icon name="resize" [isActive]="resizeDrums"></ion-icon>
+		</button>
 		<button tooltip="Move drums" navTooltip event="press" ion-button clear [style.opacity]="moveDrums ? 0.8 : ''" icon-only (click)="moveDrumsToggle()">
 			<ion-icon name="move" [isActive]="moveDrums"></ion-icon>
 		</button>
@@ -18,7 +21,7 @@
 
 	<div class="list" (touchstart)="strobe($event)" (touchmove)="editStrobe($event)" (touchend)="endStrobe($event)">
 		<button ion-button mode="md" outline *ngFor="let drum of drums"
-			[drum]="drum" [move]="moveDrums" [toggle]="toggleOnStates" [lock]="lockSettings">
+			[drum]="drum" [move]="moveDrums" [resize]="resizeDrums" [toggle]="toggleOnStates" [lock]="lockSettings">
 			{{ drum.name }}
 		</button>
 	</div>

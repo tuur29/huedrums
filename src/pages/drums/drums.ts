@@ -12,8 +12,10 @@ export class DrumsPage {
 
   drums: any;
   moveDrums: boolean = false;
+  resizeDrums: boolean = false;
   toggleOnStates: boolean = false;
   lockSettings: boolean = false;
+
   strobeLoop;
   strobecolor: number = 0;
 
@@ -42,6 +44,7 @@ export class DrumsPage {
   refresh() {
     this.lights.refresh().then(() => {
       this.moveDrums = false;
+      this.resizeDrums = false;
       this.toggleOnStates = false;
       this.lockSettings = false;
       this.drums = this.lights.query();
@@ -50,7 +53,7 @@ export class DrumsPage {
   }
 
   strobe(event) {
-    if (this.moveDrums || this.toggleOnStates) return;
+    if (this.moveDrums || this.resizeDrums || this.toggleOnStates) return;
     if (event.target.classList.contains("list")) {
       event.target.style.background = this.getStrobeColor();
       let count = 1;
@@ -63,7 +66,7 @@ export class DrumsPage {
   }
 
   editStrobe(event) {
-    if (this.moveDrums || this.toggleOnStates || this.lockSettings) return;
+    if (this.moveDrums || this.resizeDrums || this.toggleOnStates || this.lockSettings) return;
     let percent = Math.round(360*event.changedTouches[0].clientX / this.el.nativeElement.offsetWidth);
     this.strobecolor = Math.max(0, Math.min(360, percent));
   }
@@ -77,6 +80,14 @@ export class DrumsPage {
 
   moveDrumsToggle() {
     this.moveDrums = !this.moveDrums;
+    this.resizeDrums = false;
+    this.toggleOnStates = false;
+    this.lockSettings = false;
+  }
+
+  resizeDrumsToggle() {
+    this.resizeDrums = !this.resizeDrums;
+    this.moveDrums = false;
     this.toggleOnStates = false;
     this.lockSettings = false;
   }
@@ -84,12 +95,14 @@ export class DrumsPage {
   toggleOnStatesToggle() {
     this.toggleOnStates = !this.toggleOnStates;
     this.moveDrums = false;
+    this.resizeDrums = false;
     this.lockSettings = false;
   }
 
   lockSettingsToggle() {
     this.lockSettings = !this.lockSettings;
     this.moveDrums = false;
+    this.resizeDrums = false;
     this.toggleOnStates = false;
   }
 
