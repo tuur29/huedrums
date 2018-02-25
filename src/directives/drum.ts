@@ -58,8 +58,6 @@ export class DrumDirective {
     let bri = this.convertRatio(deltaY / this.getHeight(), 254);
     let hue = this.convertRatio(deltaX / this.getWidth(), 65534);
 
-    console.log(deltaX,hue);
-
     this.lights.changeSettings(this.drum, bri, hue);
   }
 
