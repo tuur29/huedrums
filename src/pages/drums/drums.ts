@@ -57,9 +57,9 @@ export class DrumsPage {
     if (event.target.classList.contains("list")) {
       if (!this.lockSettings)
         this.strobecolor = 0;
-      event.target.style.background = this.getStrobeColor();
       let count = 1;
       clearInterval(this.strobeLoop);
+      event.target.style.background = this.getStrobeColor();
       this.strobeLoop = setInterval(() => {
         event.target.style.background = count%2 ? this.getStrobeColor() : "unset";
         count++;
@@ -70,10 +70,13 @@ export class DrumsPage {
   editStrobe(event) {
     if (this.moveDrums || this.resizeDrums || this.toggleOnStates || this.lockSettings) return;
     let percent = Math.round(360*event.changedTouches[0].clientX / this.el.nativeElement.offsetWidth);
-    this.strobecolor = Math.max(0, Math.min(360, percent));
+    setTimeout(() => {
+      this.strobecolor = Math.max(0, Math.min(360, percent));
+    }, 5);
   }
 
   endStrobe(event) {
+    if (this.moveDrums || this.resizeDrums || this.toggleOnStates) return;
     if (event.target.classList.contains("list")) {
       clearInterval(this.strobeLoop);
       event.target.style.background = "unset";

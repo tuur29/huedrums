@@ -47,8 +47,11 @@ page-drums {
 		align-content: space-around;
 		height: 100%;
 		width: 100%;
+		margin: 0;
+		transition: none;
 		padding: 16px;
 		overflow: hidden;
+		background: unset;
 	}
 
 	.button-md[outline] {
