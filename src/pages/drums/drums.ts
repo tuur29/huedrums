@@ -55,6 +55,8 @@ export class DrumsPage {
   strobe(event) {
     if (this.moveDrums || this.resizeDrums || this.toggleOnStates) return;
     if (event.target.classList.contains("list")) {
+      if (!this.lockSettings)
+        this.strobecolor = 0;
       event.target.style.background = this.getStrobeColor();
       let count = 1;
       clearInterval(this.strobeLoop);
