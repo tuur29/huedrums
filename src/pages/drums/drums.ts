@@ -69,10 +69,12 @@ export class DrumsPage {
 
   editStrobe(event) {
     if (this.moveDrums || this.resizeDrums || this.toggleOnStates || this.lockSettings) return;
-    let percent = Math.round(360*event.changedTouches[0].clientX / this.el.nativeElement.offsetWidth);
-    setTimeout(() => {
-      this.strobecolor = Math.max(0, Math.min(360, percent));
-    }, 5);
+    if (event.target.classList.contains("list")) {
+      let percent = Math.round(360*event.changedTouches[0].clientX / this.el.nativeElement.offsetWidth);
+      setTimeout(() => {
+        this.strobecolor = Math.max(0, Math.min(360, percent));
+      }, 5);
+    }
   }
 
   endStrobe(event) {
