@@ -66,6 +66,10 @@ export class SettingsPage {
       this.callback(true);
   }
 
+  tutorial() {
+    this.navCtrl.push('TutorialPage');
+  }
+
   refresh() {
     this.confirm(() => {
       this.clearLightSettings();
