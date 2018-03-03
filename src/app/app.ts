@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Storage } from '@ionic/storage';
 
 @Component({
   template: `
@@ -11,16 +12,24 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   `
 })
 export class App {
-  rootPage: any = "DrumsPage";
+  rootPage: any;
 
   constructor(
   	platform: Platform,
     statusBar: StatusBar,
-  	splashScreen: SplashScreen
+  	splashScreen: SplashScreen,
+    storage: Storage
   ) {
-    platform.ready().then(() => {
-      statusBar.styleBlackTranslucent();
-      splashScreen.hide();
+    storage.get("_skiptutorial").then((data) => {
+      if (data)
+        this.rootPage = "DrumsPage";
+      else
+        this.rootPage = "TutorialPage";
+
+      platform.ready().then(() => {
+        statusBar.styleBlackTranslucent();
+        splashScreen.hide();
+      });      
     });
 
   }
