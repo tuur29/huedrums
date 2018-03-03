@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 
@@ -26,6 +26,7 @@ export class SettingsPage {
   constructor(
     public navCtrl: NavController,
     public navparams: NavParams,
+    public alertCtrl: AlertController,
     public settings: Settings,
     public formBuilder: FormBuilder,
     public splashscreen: SplashScreen,
@@ -66,23 +67,23 @@ export class SettingsPage {
   }
 
   refresh() {
-    this.storage.keys().then((keys) => {
-      keys.forEach((id, index) => {
-        if (id.indexOf('_light') == 0) {
-          this.storage.remove(id);
-        }
-      });
-    });
-
-    this.navCtrl.pop();
-    this.callback(true);
+    this.confirm(() => {
+      this.clearLightSettings();
+      this.navCtrl.pop();
+      this.callback(true);
+    });    
   }
 
   logout() {
-    this.api.logout().then(() => {
-      this.splashscreen.show();
-      window.location.hash = "";
-      window.location.reload();
+    this.confirm(() => {
+      this.clearLightSettings();
+      this.api.logout().then(() => {
+        this.splashscreen.show();
+        setTimeout(() => {
+          window.location.hash = "";
+          window.location.reload();
+        }, 100);
+      });
     });
   }
 
@@ -99,6 +100,35 @@ export class SettingsPage {
     this.settings.setValue("hiddendrums", array);
     this.dirty = true;
 
+  }
+
+  private confirm(callback) {
+    let alert = this.alertCtrl.create({
+      title: 'Are you sure?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel'
+        },
+        {
+          text: 'Yes',
+          handler: data => {
+            callback();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  private clearLightSettings() {
+    this.storage.keys().then((keys) => {
+      keys.forEach((id, index) => {
+        if (id.indexOf('_light') == 0) {
+          this.storage.remove(id);
+        }
+      });
+    });
   }
 
 }

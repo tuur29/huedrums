@@ -1,11 +1,16 @@
 page-settings {
 
-	.label {
-		white-space: pre-wrap;
+	form .item {
+		padding-left: 0;
+	}
+
+	.range {
+		padding: 0;
 	}
 
 	.card button {
 		margin-bottom: 15px !important;
+		white-space: normal;
 	}
 
 }
