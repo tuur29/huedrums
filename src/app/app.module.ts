@@ -24,7 +24,8 @@ import { ResizableDirective } from '../directives/resizable';
 export function provideSettings(storage: Storage) {
   return new Settings(storage, {
     hiddendrums: [],
-    transitiontime: 0
+    transitiontime: 0,
+    showmusicplayer: true
   });
 }
 

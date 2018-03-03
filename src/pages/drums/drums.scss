@@ -6,18 +6,18 @@
   position: relative;
 
   &:before {
-    display: block;
-    content: "";
-    width: 100%;
-    padding-top: ($height / $width) * 100%;
+	display: block;
+	content: "";
+	width: 100%;
+	padding-top: ($height / $width) * 100%;
   }
 
   > *:not(.button-effect) {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
   }
 }
 
@@ -64,6 +64,43 @@ page-drums {
 		border-radius: 100%;
 		padding: 0;
 		@include aspect-ratio(1, 1);
+	}
+
+	.trackinfo {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		padding: 0 20px 10px 20px;
+		text-align: right;
+		background: #000;
+	}
+
+	.trackinfo > * {
+		opacity: 0.35;
+	}
+
+	.trackinfo p {
+		float: left;
+		margin: 17.5px 0 0 0;
+		text-align: left;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		word-wrap: break-word;
+		white-space: nowrap;
+		width: calc( 100% - 130px);
+	}
+
+	.trackinfo button {
+		font-size: 0.7em;
+		margin: 10px 5px 0 5px;
+		color: #fff;
+	}
+
+	.trackinfo .range {
+		clear: both;
+		padding: 0 !important;
+		margin: -10px 0;
 	}
 
 }

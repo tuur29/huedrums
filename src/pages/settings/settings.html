@@ -24,6 +24,11 @@
             </ion-range>
           </ion-item>
 
+          <ion-item>
+            <ion-label>Show music player</ion-label>
+            <ion-toggle [checked]="settings.all.showmusicplayer" (ionChange)="settings.setValue('showmusicplayer', !settings.all.showmusicplayer)"></ion-toggle>
+          </ion-item>
+
         </ion-list>
       </ion-card-content>
     </ion-card>

@@ -2,6 +2,7 @@ import { Component, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import { Lights } from '../../providers/lights';
+import { Settings } from '../../providers/settings';
 
 
 @Component({
@@ -21,15 +22,15 @@ export class DrumsPage {
 
   constructor(
     public el: ElementRef,
-  	public navCtrl: NavController,
-  	public lights: Lights
+    public navCtrl: NavController,
+  	public lights: Lights,
+    public settings: Settings
   ) {
 
   	this.lights.onReady().then(() => {
       this.drums = this.lights.query();
       console.log(this.drums);
     });
-
   }
 
   openSettings() {
@@ -112,6 +113,19 @@ export class DrumsPage {
     this.resizeDrums = false;
     this.toggleOnStates = false;
   }
+
+  musicSkipPrev() {
+
+  }
+
+  musicStateToggle() {
+
+  }
+
+  musicSkipNext() {
+
+  }
+
 
   private getStrobeColor() {
     return "hsl("+ this.strobecolor +",100%, "+(this.strobecolor?"50":"100")+"%)";

@@ -25,5 +25,21 @@
 			{{ drum.name }}
 		</button>
 	</button>
+
+	<div class="trackinfo" *ngIf="settings?.all?.showmusicplayer">
+		<p>Track Name <small>- Artist</small></p>
+
+		<button ion-button clear icon-only (click)="musicSkipPrev()">
+			<ion-icon name="skip-backward"></ion-icon>
+		</button>
+		<button ion-button clear icon-only (click)="musicStateToggle()">
+			<ion-icon name="play"></ion-icon>
+		</button>
+		<button ion-button clear icon-only (click)="musicSkipNext()">
+			<ion-icon name="skip-forward"></ion-icon>
+		</button>
+
+		<ion-range min="0" max="100"></ion-range>
+	</div>
   
 </ion-content>
