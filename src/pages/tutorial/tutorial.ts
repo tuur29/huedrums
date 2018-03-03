@@ -78,7 +78,6 @@ export class TutorialPage {
 
   holdLoop() {
     let time = (new Date).getTime();
-    console.log(this.lastLoopTouch, time);
     if (this.lastLoopTouch && time - this.lastLoopTouch < 2000) {
 
       let element = document.getElementById("exampleloop");
@@ -113,8 +112,7 @@ export class TutorialPage {
   }
 
   finish() {
-    // TODO: enable skiptutorial
-    this.storage.set("_skiptutorial", false);
+    this.storage.set("_skiptutorial", true);
     this.navCtrl.setRoot('DrumsPage', {}, {animate: true, direction: 'backward'});
   }
 }
