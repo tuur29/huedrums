@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Storage } from '@ionic/storage';
 
 import { Api } from '../../providers/api';
 import { Lights } from '../../providers/lights';
@@ -28,6 +29,7 @@ export class SettingsPage {
     public settings: Settings,
     public formBuilder: FormBuilder,
     public splashscreen: SplashScreen,
+    public storage: Storage,
     public api: Api,
     public l: Lights
   ) {
@@ -64,6 +66,14 @@ export class SettingsPage {
   }
 
   refresh() {
+    this.storage.keys().then((keys) => {
+      keys.forEach((id, index) => {
+        if (id.indexOf('_light') == 0) {
+          this.storage.remove(id);
+        }
+      });
+    });
+
     this.navCtrl.pop();
     this.callback(true);
   }

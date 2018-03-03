@@ -1,12 +1,13 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
-
+import { Storage } from '@ionic/storage';
 
 @Directive({
   selector: '[move]'
 })
 export class MoveableDirective {
 
+  @Input() drum;
   @Input() move: boolean;
 
   startX: number;
@@ -18,15 +19,20 @@ export class MoveableDirective {
 
   constructor(
     public el: ElementRef,
+    public storage: Storage,
     private screenOrientation: ScreenOrientation
-  ) {
-    this.el.nativeElement.style.position = "relative";
-    this.el.nativeElement.style.top = 0;
-    this.el.nativeElement.style.left = 0;
+  ) { }
 
-    this.screenOrientation.onChange().subscribe(() => {
-      this.el.nativeElement.style.top = 0;
-      this.el.nativeElement.style.left = 0;
+  ngAfterViewInit() {
+    this.storage.get("_light_"+this.drum.uniqueid).then((data) => {
+      this.el.nativeElement.style.position = "relative";
+      this.el.nativeElement.style.top = (data ? data.y : 0) + "px";
+      this.el.nativeElement.style.left = (data ? data.x : 0) + "px";
+      
+      this.screenOrientation.onChange().subscribe(() => {
+        this.el.nativeElement.style.top = (data ? data.y : 0) + "px";
+        this.el.nativeElement.style.left = (data ? data.x : 0) + "px";
+      });
     });
   }
 
@@ -60,6 +66,22 @@ export class MoveableDirective {
     
     this.el.nativeElement.style.top = this.startY + deltaY + "px";
     this.el.nativeElement.style.left = this.startX + deltaX + "px";
+  }
+
+  @HostListener('touchend', ['$event'])
+  onMouseUp(event: any): void {
+
+    if (!this.move) return;
+    if (!this.getTouch(event.changedTouches)) return;
+    event.preventDefault();
+
+    this.storage.get("_light_"+this.drum.uniqueid).then((data: any) => {
+      if (!data) data = {id: this.drum.uniqueid, x: 0, y: 0, size: 1};
+      data.x = parseInt(this.el.nativeElement.style.left.replace("px","")) || data.x;
+      data.y = parseInt(this.el.nativeElement.style.top.replace("px","")) || data.y;
+      data.size = parseFloat(this.el.nativeElement.style.transform.replace("scale(","").replace(")","")) || data.size;
+      this.storage.set("_light_"+this.drum.uniqueid, data);
+    });
   }
 
   private getTouch(touches: TouchList): Touch {
