@@ -20,6 +20,7 @@ import { DrumsPage } from '../pages/drums/drums';
 import { DrumDirective } from '../directives/drum';
 import { MoveableDirective } from '../directives/moveable';
 import { ResizableDirective } from '../directives/resizable';
+import { LoopableDirective } from '../directives/loopable';
 
 export function provideSettings(storage: Storage) {
   return new Settings(storage, {
@@ -35,7 +36,8 @@ export function provideSettings(storage: Storage) {
     DrumsPage,
     DrumDirective,
     MoveableDirective,
-    ResizableDirective
+    ResizableDirective,
+    LoopableDirective
   ],
   imports: [
     BrowserModule,

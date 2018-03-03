@@ -13,6 +13,7 @@ export class DrumDirective {
   @Input() move = false;
   @Input() resize = false;
   @Input() toggle = false;
+  @Input() loop = false;
   @Input() lock = false;
 
   fingerID;
@@ -46,7 +47,7 @@ export class DrumDirective {
   }
 
   onTouchMove(event: any): void {
-    if (this.move || this.resize || this.toggle) return;
+    if (this.move || this.resize || this.toggle || this.loop) return;
     if (!this.getTouch(event.changedTouches)) return;
 
     event.preventDefault();

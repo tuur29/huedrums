@@ -2,26 +2,29 @@
 <ion-content>
 
 	<div class="buttons">
-		<button tooltip="Toggle status of lamp" navTooltip event="press" ion-button clear [style.opacity]="toggleOnStates ? 0.8 : ''" icon-only (click)="toggleOnStatesToggle()">
+		<button tooltip="Toggle loop mode" navTooltip event="press" ion-button clear [style.opacity]="toggleLoopMode ? 0.8 : ''" icon-only (touchstart)="toggleLoopModeToggle()">
+			<ion-icon name="infinite" [isActive]="toggleLoopMode"></ion-icon>
+		</button>
+		<button tooltip="Toggle status of lamp" navTooltip event="press" ion-button clear [style.opacity]="toggleOnStates ? 0.8 : ''" icon-only (touchstart)="toggleOnStatesToggle()">
 			<ion-icon name="bulb" [isActive]="toggleOnStates"></ion-icon>
 		</button>
-		<button tooltip="Resize drums" navTooltip event="press" ion-button clear [style.opacity]="resizeDrums ? 0.8 : ''" icon-only (click)="resizeDrumsToggle()">
+		<button tooltip="Resize drums" navTooltip event="press" ion-button clear [style.opacity]="resizeDrums ? 0.8 : ''" icon-only (touchstart)="resizeDrumsToggle()">
 			<ion-icon name="resize" [isActive]="resizeDrums"></ion-icon>
 		</button>
-		<button tooltip="Move drums" navTooltip event="press" ion-button clear [style.opacity]="moveDrums ? 0.8 : ''" icon-only (click)="moveDrumsToggle()">
+		<button tooltip="Move drums" navTooltip event="press" ion-button clear [style.opacity]="moveDrums ? 0.8 : ''" icon-only (touchstart)="moveDrumsToggle()">
 			<ion-icon name="move" [isActive]="moveDrums"></ion-icon>
 		</button>
-		<button tooltip="Lock colors" navTooltip event="press" ion-button clear [style.opacity]="lockSettings ? 0.8 : ''" icon-only (click)="lockSettingsToggle()">
+		<button tooltip="Lock colors" navTooltip event="press" ion-button clear [style.opacity]="lockSettings ? 0.8 : ''" icon-only (touchstart)="lockSettingsToggle()">
 			<ion-icon name="lock" [isActive]="lockSettings"></ion-icon>
 		</button>
-		<button tooltip="Settings" navTooltip event="press" ion-button clear icon-only (click)="openSettings()">
+		<button tooltip="Settings" navTooltip event="press" ion-button clear icon-only (touchstart)="openSettings()">
 			<ion-icon name="settings"></ion-icon>
 		</button>
 	</div>
 
 	<button ion-button class="list" (touchstart)="strobe($event)" (touchmove)="editStrobe($event)" (touchend)="endStrobe($event)">
 		<button ion-button mode="md" outline *ngFor="let drum of drums"
-			[drum]="drum" [move]="moveDrums" [resize]="resizeDrums" [toggle]="toggleOnStates" [lock]="lockSettings">
+			[drum]="drum" [move]="moveDrums" [resize]="resizeDrums" [toggle]="toggleOnStates" [lock]="lockSettings" [loop]="toggleLoopMode" (endLoop)="toggleLoopMode=false">
 			{{ drum.name }}
 		</button>
 	</button>

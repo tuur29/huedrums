@@ -58,17 +58,17 @@ export class Lights {
 
   }
 
-  toggle(light) {
+  toggle(light, forceOn?: boolean) {
     let url = 'lights/'+light.id+'/state';
     light.state.on = !light.state.on;
 
     let state = {
-      on: light.state.on,
+      on: forceOn != undefined ? forceOn : light.state.on,
       bri: light.state.bri,
       transitiontime: this.settings.all.transitiontime
     };
 
-    if (light.state.on)
+    if (state.on)
       if (light.type.toLowerCase().indexOf("color") > -1)
         state['hue'] = light.state.hue;
       else if (light.type.toLowerCase().indexOf("temperature") > -1)
