@@ -3,6 +3,7 @@ import { IonicPage, NavController } from 'ionic-angular';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen';
 
 import { Lights } from '../../providers/lights';
+import { Settings } from '../../providers/settings';
 
 
 @IonicPage()
@@ -26,9 +27,11 @@ export class DrumsPage {
     public fullscreen: AndroidFullScreen,
     public el: ElementRef,
     public navCtrl: NavController,
-  	public lights: Lights
+    public lights: Lights,
+  	public settings: Settings,
   ) {
 
+    this.settings.load();
 
     this.lights.onReady().then(() => {
       this.drums = this.lights.query();
@@ -67,7 +70,7 @@ export class DrumsPage {
   }
 
   strobe(event) {
-    if (this.moveDrums || this.resizeDrums || this.toggleOnStates || this.toggleLoopMode) return;
+    if (!this.settings.all.enablestrobing || this.moveDrums || this.resizeDrums || this.toggleOnStates || this.toggleLoopMode)  return;
     if (event.target.classList.contains("list")) {
       if (!this.lockSettings)
         this.strobecolor = 0;

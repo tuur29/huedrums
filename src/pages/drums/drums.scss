@@ -34,6 +34,10 @@ page-drums {
 		background: unset;
 	}
 
+	.list.activated {
+		background-color: transparent;
+	}
+
 	.button-md[outline] {
 		flex: 1 0 10%;
 		max-width: 25%;
