@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { AndroidFullScreen } from '@ionic-native/android-full-screen';
 
 @Component({
   template: `
@@ -12,18 +11,18 @@ import { AndroidFullScreen } from '@ionic-native/android-full-screen';
   `
 })
 export class App {
-  rootPage:any = 'DrumsPage';
+  rootPage: any = "DrumsPage";
 
   constructor(
-  	platform: Platform, statusBar: StatusBar,
-  	splashScreen: SplashScreen,
-  	fullscreen: AndroidFullScreen
+  	platform: Platform,
+    statusBar: StatusBar,
+  	splashScreen: SplashScreen
   ) {
     platform.ready().then(() => {
       statusBar.styleBlackTranslucent();
       splashScreen.hide();
-      fullscreen.immersiveMode();
     });
+
   }
 }
 

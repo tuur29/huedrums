@@ -1,5 +1,6 @@
 import { Component, ElementRef } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
+import { AndroidFullScreen } from '@ionic-native/android-full-screen';
 
 import { Lights } from '../../providers/lights';
 
@@ -22,16 +23,26 @@ export class DrumsPage {
   strobecolor: number = 0;
 
   constructor(
+    public fullscreen: AndroidFullScreen,
     public el: ElementRef,
-  	public navCtrl: NavController,
+    public navCtrl: NavController,
   	public lights: Lights
   ) {
 
-  	this.lights.onReady().then(() => {
+
+    this.lights.onReady().then(() => {
       this.drums = this.lights.query();
       console.log(this.drums);
     });
 
+  }
+
+  ionViewWillEnter() {
+    this.fullscreen.immersiveMode();
+  }
+
+  ionViewDidLeave() {
+    this.fullscreen.showSystemUI();
   }
 
   openSettings() {
