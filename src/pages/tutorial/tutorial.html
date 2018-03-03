@@ -1,29 +1,56 @@
 <ion-header no-border>
 
   <ion-navbar>
-    <ion-buttons end>
-      <button ion-button (click)="finish()">Skip</button>
+    <ion-buttons end *ngIf="slide < 4">
+      <button ion-button (click)="finish()">Skip tutorial</button>
     </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content no-bounce fullscreen>
-  <ion-slides pager="true">
+  <ion-slides pager="true" (ionSlideWillChange)="ionSlideWillChange($event)">
 
-    <ion-slide style="background-color: red">
-      <h2 class="slide-title" style="background-color:">Welcome!</h2>
-      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+    <ion-slide style="background-color: #455A64">
+    	<!-- TODO: add image of tapping button -->
+      <p>As long as you press a drum, the corresponding lamp will turn on (or off depending on how it started).</p>
+      <!-- TODO: add image of finger dragging in horizonal & vertical dir -->
+      <p>Drag your finger horizontally across the drum to change the lamp's color, drag it vertically to change it's brightness.</p>
     </ion-slide>
 
-    <ion-slide style="background-color: green">
-      <h2 class="slide-title">Welcome!</h2>
-      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+    <ion-slide style="background-color: #303F9F">
+      <!-- TODO: add image of strobe -->
+      <h3>Strobe</h3>
+      <p>When you touch the vast blackness that surrounds the drums and buttons the screen will start strobing.</p>
+      <p>Dragging your finger horizontally will also change it's color. The color will reset to white on every touch.</p>
     </ion-slide>
 
-    <ion-slide style="background-color: blue">
-      <h2 class="slide-title">Welcome!</h2>
-      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+    <ion-slide style="background-color: #1976D2">
+      <h3>
+      	<ion-icon name="infinite"></ion-icon>
+	      Adding a bassline
+	    </h3>
+      <p>Adding a bassline is simple! First, enable the 'loop' mode, next tap and hold a drum. The lamp will continue to flicker as long as you hold the drum.</p>
+    </ion-slide>
+
+    <ion-slide style="background-color: #512DA8">
+      <!-- TODO: add image of moving and resizing -->
+      <h3>
+      	<ion-icon name="resize"></ion-icon>&nbsp;<ion-icon name="move"></ion-icon>&nbsp;
+      	Customizing the drums
+      </h3>
+      <p>You can customize how the drums look by either tapping the move or resize buttons at the top.</p>
+      <p>To resize a drum, hold it and drag vertically.</p>
+    </ion-slide>
+
+    <ion-slide class="left-align" style="background-color: #C2185B">
+      <h3>More features</h3>
+    	<p><ion-icon name="bulb"></ion-icon>&nbsp;Permanently toggle the state of a lamp so it flickers off instead of on.</p>
+    	<p><ion-icon name="lock"></ion-icon>&nbsp;Lock all colors so you don't accidentally change your setup mid-drumming.</p>
+    	<p><ion-icon name="settings"></ion-icon>&nbsp;You can ease the flickering of your drums in the settings for a more relaxed lightshow.</p>
+    	<p><ion-icon name="settings"></ion-icon>&nbsp;Hide certain 'boring' or unwanted drums.</p>
+
+    	<button ion-button outline color="dark" (click)="finish()">Start drumming!</button>
     </ion-slide>
     
   </ion-slides>

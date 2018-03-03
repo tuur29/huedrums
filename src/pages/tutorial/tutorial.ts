@@ -9,11 +9,16 @@ import { Storage } from '@ionic/storage';
 })
 export class TutorialPage {
 
+  slide: number = 0;
+
   constructor(
     public navCtrl: NavController,
     public navparams: NavParams,
     public storage: Storage
-  ) {
+  ) { }
+
+  ionSlideWillChange(event) {
+  	this.slide = event.getActiveIndex();
   }
 
   finish() {

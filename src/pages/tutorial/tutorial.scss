@@ -12,8 +12,24 @@ page-tutorial {
 		padding: 15px;
 	}
 
+	.slide-zoom {
+		max-width: 400px;
+		font-size: 0.9em;
+		font-weight: 300;
+	}
+
 	.swiper-pagination-bullet-active {
 		background: white;
+	}
+
+	h3 .icon {
+		vertical-align: text-top;
+	}
+
+	.left-align p {
+		max-width: 325px;
+		margin: 1em auto;
+		text-align: justify;
 	}
 
 }
