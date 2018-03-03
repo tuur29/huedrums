@@ -46,7 +46,7 @@ export class DrumDirective {
   }
 
   onTouchMove(event: any): void {
-    if (this.move || this.resize || this.toggle || this.lock) return;
+    if (this.move || this.resize || this.toggle) return;
     if (!this.getTouch(event.changedTouches)) return;
 
     event.preventDefault();
@@ -58,7 +58,7 @@ export class DrumDirective {
     let bri = this.convertRatio(deltaY / this.getHeight(), 254);
     let hue = this.convertRatio(deltaX / this.getWidth(), 65534);
 
-    this.lights.changeSettings(this.drum, bri, hue);
+    this.lights.changeSettings(this.drum, bri, this.lock ? this.drum.hue : hue);
   }
 
   private showBounds() {
