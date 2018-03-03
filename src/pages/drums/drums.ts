@@ -1,9 +1,10 @@
 import { Component, ElementRef } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 
 import { Lights } from '../../providers/lights';
 
 
+@IonicPage()
 @Component({
   selector: 'page-drums',
   templateUrl: 'drums.html'

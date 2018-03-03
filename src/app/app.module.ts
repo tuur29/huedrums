@@ -8,19 +8,13 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule, Storage } from '@ionic/storage';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen';
-import { TooltipsModule } from 'ionic-tooltips';
 
 import { Api } from '../providers/api';
 import { Bridge } from '../providers/bridge';
 import { Lights } from '../providers/lights';
 import { Settings } from '../providers/settings';
 
-import { HueDrumsApp } from './app.component';
-import { DrumsPage } from '../pages/drums/drums';
-import { DrumDirective } from '../directives/drum';
-import { MoveableDirective } from '../directives/moveable';
-import { ResizableDirective } from '../directives/resizable';
-import { LoopableDirective } from '../directives/loopable';
+import { App } from './app';
 
 export function provideSettings(storage: Storage) {
   return new Settings(storage, {
@@ -32,25 +26,18 @@ export function provideSettings(storage: Storage) {
 
 @NgModule({
   declarations: [
-    HueDrumsApp,
-    DrumsPage,
-    DrumDirective,
-    MoveableDirective,
-    ResizableDirective,
-    LoopableDirective
+    App
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    IonicModule.forRoot(HueDrumsApp),
-    IonicStorageModule.forRoot(),
-    TooltipsModule
+    IonicModule.forRoot(App),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    HueDrumsApp,
-    DrumsPage
+    App
   ],
   providers: [
     Api,
