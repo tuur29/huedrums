@@ -4,3 +4,7 @@
 - Move drums with transform translate instead of position relative
 - use Header Color package
 - use Cordova Backlight package
+- Fix can dismiss bridge auth popup
+- Transparent status bar on tutorial
+- Improve icon
+
