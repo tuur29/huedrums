@@ -44,7 +44,7 @@ export class DrumsPage {
     this.fullscreen.immersiveMode();
   }
 
-  ionViewDidLeave() {
+  ionViewWillLeave() {
     this.fullscreen.showSystemUI();
   }
 

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { AndroidFullScreen } from '@ionic-native/android-full-screen';
+
 
 @IonicPage()
 @Component({
@@ -21,13 +23,21 @@ export class TutorialPage {
     public navCtrl: NavController,
     public navparams: NavParams,
     public storage: Storage,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private androidFullScreen: AndroidFullScreen
   ) { }
+
+  ionViewWillEnter() {
+    this.androidFullScreen.showUnderSystemUI();
+  }
+
+  ionViewWillLeave() {
+    this.androidFullScreen.showSystemUI();
+  }
 
   ionSlideWillChange(event) {
     this.slide = event.getActiveIndex();
   }
-
 
   holdNormalDrum() {
     if (this.enableDrumToast) {

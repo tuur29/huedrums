@@ -5,6 +5,5 @@
 - use Header Color package
 - use Cordova Backlight package
 - Fix can dismiss bridge auth popup
-- Transparent status bar on tutorial
 - Improve icon
 
