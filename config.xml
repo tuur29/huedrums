@@ -3,7 +3,7 @@
     <name>Hue Drums</name>
     <description>Play your hue lights like a drum and make your own lightshow!</description>
     <author href="https://www.tuurlievens.net/">Tuur Lievens</author>
-    <content original-src="index.html" src="http://192.168.0.14:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -88,5 +88,5 @@
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="cordova-plugin-screen-orientation" spec="^3.0.1" />
     <plugin name="cordova-plugin-fullscreen" spec="^1.2.0" />
-    <engine name="android" spec="7.0.0" />
+    <engine name="android" spec="~7.0.0" />
 </widget>
