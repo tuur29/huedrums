@@ -33,9 +33,14 @@ export class Api {
         } else {
 
           let loader = this.showLoader();
-          this.http.get('https://www.meethue.com/api/nupnp').subscribe((data) => {
+          this.http.get('https://www.meethue.com/api/nupnp').subscribe((data: any[]) => {
             loader.dismiss();
-            this.getApiKey(data[0].internalipaddress, resolve);
+            if (data.length < 1) {
+              this.showToast("There are no Hue Bridges on this network. Re-open this app to try again.", 10000);
+              this.showManualAlert();
+            } else {
+              this.selectBridge(data, resolve);
+            }
           });
 
         }
@@ -97,11 +102,45 @@ export class Api {
 
   // HELPERS
 
+  private selectBridge(data: any[], resolve) {
+
+    if (data.length == 1) {
+      this.getApiKey(data[0].internalipaddress, resolve);
+      return;
+    }
+
+    let alert = this.alertCtrl.create({
+      enableBackdropDismiss: false,
+      title: 'Select Hue Bridge',
+      message: "You have more than one Hue Bridge connected to your network.",
+      buttons: [
+        {
+          text: 'Select',
+          handler: ip => {
+            if (!ip) return false;
+            this.getApiKey(ip, resolve);
+          }
+        }
+      ]
+    });
+
+    for (let bridge of data)
+      alert.addInput({
+        type: 'radio',
+        label: (bridge.name || bridge.macaddress || bridge.id) + " ("+bridge.internalipaddress+")",
+        value: bridge.internalipaddress
+      });
+
+    alert.present();
+    
+  }
+
   private getApiKey(ip: string, resolve) {
     this.showAlert(ip).then((data: any) => {
 
       if (data[0].error) {
-        this.showToast(data[0].error.description, 5000);
+        let msg = data[0].error.description;
+        this.showToast(msg.charAt(0).toUpperCase() + msg.slice(1), 5000);
         this.getApiKey(ip, resolve);
         
       } else {
@@ -119,8 +158,9 @@ export class Api {
     return new Promise((resolve, reject) => {
 
       let alert = this.alertCtrl.create({
+        enableBackdropDismiss: false,
         title: 'Allow application',
-        message: "Press the button on your hue bridge to allow this application and press the 'Authenticate' button below.",
+        message: `<p>Press the button on your hue bridge to allow this application and press the 'Authenticate' button below.</p><p> Current bridge: ${ip}</p>`,
         buttons: [
           {
             text: 'Enter details manually',
@@ -146,7 +186,9 @@ export class Api {
     return new Promise((resolve, reject) => {
 
       let alert = this.alertCtrl.create({
-        title: 'Allow application',
+        enableBackdropDismiss: false,
+        title: 'Manually allow app',
+        message: `<p>You can get a api key for your hue bridge manually by following <a href="https://developers.meethue.com/documentation/getting-started">these steps</a>.</p>`,
         inputs: [
           {
             name: 'ip',
@@ -156,6 +198,7 @@ export class Api {
           {
             name: 'apikey',
             placeholder: 'Apikey for bridge',
+            value: ''
           }
         ],
         buttons: [
@@ -168,6 +211,7 @@ export class Api {
           {
             text: 'Authenticate',
             handler: data => {
+              if (!data.ip.length || !data.apikey.length) return false;
 
               this.apikey = data.apikey;
               this.ip = data.ip;
@@ -175,10 +219,14 @@ export class Api {
               this.get('').subscribe((d) => {
                 if (d[0]) {
                   resolve(d);
+                  alert.dismiss();
                 } else {
                   resolve([{success: {username: data.apikey}}]);
+                  alert.dismiss();
                 }
               });
+
+              return false;
             }
           }
         ]
