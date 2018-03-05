@@ -70,6 +70,7 @@ export class DrumsPage {
     if (!this.settings.all.enablestrobing || this.moveDrums || this.resizeDrums || this.toggleOnStates || this.toggleLoopMode)  return;
     if (event.target.classList.contains("list")) {
       if (!this.lockSettings)
+        event.target.style.animationDuration = this.settings.all.strobespeed+"ms";
         event.target.style.background = "";
       event.target.className += " strobe";
     }

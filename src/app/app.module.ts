@@ -20,7 +20,8 @@ export function provideSettings(storage: Storage) {
   return new Settings(storage, {
     hiddendrums: [],
     transitiontime: 0,
-    enablestrobing: true
+    enablestrobing: true,
+    strobespeed: 100
   });
 }
 

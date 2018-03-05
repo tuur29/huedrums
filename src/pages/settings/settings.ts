@@ -47,10 +47,12 @@ export class SettingsPage {
       // add settings here & in html
       this.form = this.formBuilder.group({
         transitiontime: [this.options.transitiontime],
-        enablestrobing: [this.options.enablestrobing]
+        enablestrobing: [this.options.enablestrobing],
+        strobespeed: [this.options.strobespeed]
       });
 
       this.form.valueChanges.subscribe((v) => {
+        v.transitiontime = v.transitiontime / 100;
         this.settings.merge(this.form.value);
       });
 

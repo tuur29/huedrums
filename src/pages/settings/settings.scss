@@ -5,7 +5,15 @@ page-settings {
 	}
 
 	.range {
-		padding: 0;
+		margin-top: -20px;
+	}
+
+	.range-md .range-pin {
+      z-index: 9999;
+	}
+
+	.range-md.range-disabled .range-knob {
+		outline: none;
 	}
 
 	.card button {

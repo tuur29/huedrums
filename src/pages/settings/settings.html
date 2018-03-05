@@ -16,18 +16,28 @@
 
       <ion-card>
         <ion-card-content>
-          <ion-list>
-
-            <ion-item>
-              <ion-range min="0" max="10" formControlName="transitiontime">
-                <ion-label range-left>Transition time: &nbsp; 0s</ion-label>
-                <ion-label range-right>1s</ion-label>
+          
+              <ion-range min="0" max="1000" step="100" snaps pin formControlName="transitiontime">
+                <ion-label range-left>Transition time: &nbsp; 0ms</ion-label>
+                <ion-label range-right>1000ms</ion-label>
               </ion-range>
-            </ion-item>
+          
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-content>
+          <ion-list>
 
             <ion-item>
               <ion-label>Enable strobing</ion-label>
               <ion-toggle formControlName="enablestrobing"></ion-toggle>
+            </ion-item>
+            <ion-item>
+              <ion-range [disabled]="!settings.all.enablestrobing" min="25" max="500" step="25" snaps pin formControlName="strobespeed">
+                <ion-label range-left>Strobe speed: &nbsp; 25ms</ion-label>
+                <ion-label range-right>500ms</ion-label>
+              </ion-range>
             </ion-item>
 
           </ion-list>
