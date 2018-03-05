@@ -8,6 +8,18 @@ You can find all releases here: https://github.com/tuur29/huedrums/releases
 - [Youtube functionality demo](https://youtu.be/eokq6eNTzFg)
 - [Youtube music demo](https://youtu.be/F2KZp8hP2-o)
 
+## Features
+
+Current Features:
+- Turn a lamp on as long as you keep your finger on the drum
+- Edit colors and brightness mid-drumming
+- Strobe your phone's screen
+- Easily add a baseline
+- Move and resize your drums
+- Short tutorial
+- Multitouch support
+- ...
+
 ### Building
 
-`ionic cordova build android --prod --release -- -- --keystore=platforms/android/huedrums-key.jks --storePassword="password" --alias=huedrums --password="password"`
+`ionic cordova build android --prod --release -- -- --keystore=platforms/huedrums-key.jks --storePassword="qwerty" --alias=huedrums --password="qwerty"`
