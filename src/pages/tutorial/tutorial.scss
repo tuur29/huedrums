@@ -57,10 +57,10 @@ page-tutorial {
 
 	// strobing
 	#examplestrobe.animate {
-		animation: strobe 150ms steps(1, end) infinite;
+		animation: examplestrobe 150ms steps(1, end) infinite;
 	}
 
-	@keyframes strobe {
+	@keyframes examplestrobe {
 	  50% { background: white; }
 	}
 

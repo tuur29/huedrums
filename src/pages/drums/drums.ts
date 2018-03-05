@@ -20,9 +20,6 @@ export class DrumsPage {
   toggleLoopMode: boolean = false;
   lockSettings: boolean = false;
 
-  strobeLoop;
-  strobecolor: number = 0;
-
   constructor(
     public fullscreen: AndroidFullScreen,
     public el: ElementRef,
@@ -73,32 +70,25 @@ export class DrumsPage {
     if (!this.settings.all.enablestrobing || this.moveDrums || this.resizeDrums || this.toggleOnStates || this.toggleLoopMode)  return;
     if (event.target.classList.contains("list")) {
       if (!this.lockSettings)
-        this.strobecolor = 0;
-      let count = 1;
-      clearInterval(this.strobeLoop);
-      event.target.style.background = this.getStrobeColor();
-      this.strobeLoop = setInterval(() => {
-        event.target.style.background = count%2 ? this.getStrobeColor() : "unset";
-        count++;
-      }, 50);
+        event.target.style.background = "";
+      event.target.className += " strobe";
     }
   }
 
   editStrobe(event) {
-    if (this.moveDrums || this.resizeDrums || this.toggleOnStates || this.toggleLoopMode || this.lockSettings) return;
+    if (!this.settings.all.enablestrobing || this.moveDrums || this.resizeDrums || this.toggleOnStates || this.toggleLoopMode || this.lockSettings) return;
     if (event.target.classList.contains("list")) {
       let percent = Math.round(360*event.changedTouches[0].clientX / this.el.nativeElement.offsetWidth);
-      setTimeout(() => {
-        this.strobecolor = Math.max(0, Math.min(360, percent));
-      }, 5);
+      let degrees = Math.max(0, Math.min(360, percent));
+      let color = "hsl("+ degrees +",100%, "+(degrees?"50":"100")+"%)";
+      event.target.style.background = color;
     }
   }
 
   endStrobe(event) {
-    if (this.moveDrums || this.resizeDrums || this.toggleOnStates || this.toggleLoopMode) return;
+    if (!this.settings.all.enablestrobing || this.moveDrums || this.resizeDrums || this.toggleOnStates || this.toggleLoopMode) return;
     if (event.target.classList.contains("list")) {
-      clearInterval(this.strobeLoop);
-      event.target.style.background = "unset";
+      event.target.className = event.target.className.replace(" strobe","");
     }
   }
 
@@ -140,10 +130,6 @@ export class DrumsPage {
     this.resizeDrums = false;
     this.toggleOnStates = false;
     this.toggleLoopMode = false;
-  }
-
-  private getStrobeColor() {
-    return "hsl("+ this.strobecolor +",100%, "+(this.strobecolor?"50":"100")+"%)";
   }
 
 }

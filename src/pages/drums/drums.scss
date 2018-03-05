@@ -38,6 +38,19 @@ page-drums {
 		background-color: transparent;
 	}
 
+	.list:not(.strobe) {
+		background-color: transparent !important;
+	}
+	
+	.strobe, .strobe.activated {
+		background: white;
+		animation: strobe 150ms steps(1, end) infinite;
+	}
+
+	@keyframes strobe {
+	  50% { background: unset; }
+	}
+
 	.button-md[outline] {
 		flex: 1 0 10%;
 		max-width: 25%;
