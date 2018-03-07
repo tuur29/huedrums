@@ -98,7 +98,6 @@ export class DrumsPage {
     this.resizeDrums = false;
     this.toggleOnStates = false;
     this.toggleLoopMode = false;
-    this.lockSettings = false;
   }
 
   resizeDrumsToggle() {
@@ -106,7 +105,6 @@ export class DrumsPage {
     this.moveDrums = false;
     this.toggleOnStates = false;
     this.toggleLoopMode = false;
-    this.lockSettings = false;
   }
 
   toggleOnStatesToggle() {
@@ -114,7 +112,6 @@ export class DrumsPage {
     this.moveDrums = false;
     this.resizeDrums = false;
     this.toggleLoopMode = false;
-    this.lockSettings = false;
   }
 
   toggleLoopModeToggle() {
@@ -122,15 +119,10 @@ export class DrumsPage {
     this.moveDrums = false;
     this.resizeDrums = false;
     this.toggleOnStates = false;
-    this.lockSettings = false;
   }
 
   lockSettingsToggle() {
     this.lockSettings = !this.lockSettings;
-    this.moveDrums = false;
-    this.resizeDrums = false;
-    this.toggleOnStates = false;
-    this.toggleLoopMode = false;
   }
 
 }
