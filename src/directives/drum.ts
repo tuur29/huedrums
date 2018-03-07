@@ -17,6 +17,7 @@ export class DrumDirective {
   @Input() lock = false;
 
   fingerID;
+  dragactivated = false;
 
   constructor(
     public el: ElementRef,
@@ -42,7 +43,7 @@ export class DrumDirective {
   @HostListener('touchend', ['$event'])
   onMouseUp(event: any): void {
     if (this.move || this.resize || this.toggle) return;
-
+    this.dragactivated = false;
     this.lights.toggle(this.drum);
   }
 
@@ -54,7 +55,10 @@ export class DrumDirective {
 
     let deltaX = this.getTouch(event.changedTouches).clientX - this.getCenter().x;
     let deltaY = -(this.getTouch(event.changedTouches).clientY - this.getCenter().y);
-    if (Math.abs(deltaX) < 5 && Math.abs(deltaY) < 5) return;
+    if (Math.abs(deltaX) > 15 || Math.abs(deltaY) > 15)
+      this.dragactivated = true;
+
+    if (!this.dragactivated) return;
 
     let bri = this.convertRatio(deltaY / this.getHeight(), 254);
     let hue = this.convertRatio(deltaX / this.getWidth(), 65534);
