@@ -52,7 +52,7 @@ export class SettingsPage {
       });
 
       this.form.valueChanges.subscribe((v) => {
-        v.transitiontime = v.transitiontime / 100;
+        v.transitiontime = v.transitiontime;
         this.settings.merge(this.form.value);
       });
 

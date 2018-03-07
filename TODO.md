@@ -1,8 +1,5 @@
 # TODO
 
-- Shorten range labels
-- Fix range thumbs not completely visible
-- fix transition speed slider doesn't show current option
 - Decrease drag to color change sensitivity
 - Change so color lock isn't disabled by other buttons
 - Fix strobe doesn't work on original place of buttons

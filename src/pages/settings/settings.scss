@@ -2,10 +2,11 @@ page-settings {
 
 	form .item {
 		padding-left: 0;
+		background: none;
 	}
 
-	.range {
-		margin-top: -20px;
+	.item-range {
+		margin-top: -25px;
 	}
 
 	.range-md .range-pin {
@@ -19,6 +20,10 @@ page-settings {
 	.card button {
 		margin-bottom: 15px !important;
 		white-space: normal;
+	}
+
+	#transitiontime .range-pin::after {
+		content: "00";
 	}
 
 }
