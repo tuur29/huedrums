@@ -1,6 +1,7 @@
 import { Directive, ElementRef, HostListener, Input, EventEmitter, Output } from '@angular/core';
 
 import { Lights } from '../providers/lights';
+import { Settings } from '../providers/settings';
 
 
 @Directive({
@@ -19,7 +20,8 @@ export class LoopableDirective {
 
   constructor(
     public el: ElementRef,
-    public lights: Lights
+    public lights: Lights,
+    public settings: Settings
   ) { }
 
   @HostListener('touchstart', ['$event'])
@@ -34,15 +36,15 @@ export class LoopableDirective {
     } else {
       let diff = (new Date()).getTime() - this.lastTap;
       this.lastTap = 0;
-      if (diff < 200 || diff > 1500) return;
+      if (diff < this.settings.all.loopflashlength + 50 || diff > 2000) return;
 
       this.endLoop.emit();
       this.originalstate = this.drum.state.on;
 
-      setTimeout(() => this.lights.toggle(this.drum), 150);
+      setTimeout(() => this.lights.toggle(this.drum), this.settings.all.loopflashlength);
       this.beat = setInterval(() => {
         this.lights.toggle(this.drum);
-        setTimeout(() => this.lights.toggle(this.drum), 150);
+        setTimeout(() => this.lights.toggle(this.drum), this.settings.all.loopflashlength);
       }, diff);
     }
 

@@ -21,7 +21,8 @@ export function provideSettings(storage: Storage) {
     hiddendrums: [],
     transitiontime: 0,
     enablestrobing: true,
-    strobespeed: 100
+    strobespeed: 100,
+    loopflashlength: 200
   });
 }
 

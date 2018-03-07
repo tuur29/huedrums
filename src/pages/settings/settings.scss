@@ -9,6 +9,10 @@ page-settings {
 		margin-top: -25px;
 	}
 
+	.label + .range {
+		padding-top: 0;
+	}
+
 	.range-md .range-pin {
       z-index: 9999;
 	}
@@ -22,7 +26,7 @@ page-settings {
 		white-space: normal;
 	}
 
-	#transitiontime .range-pin::after {
+	.milliseconds .range-pin::after {
 		content: "00";
 	}
 
