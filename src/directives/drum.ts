@@ -14,7 +14,7 @@ export class DrumDirective {
   @Input() resize = false;
   @Input() toggle = false;
   @Input() loop = false;
-  @Input() lock = false;
+  @Input() lock = 0;
 
   fingerID;
   dragactivated = false;
@@ -48,7 +48,7 @@ export class DrumDirective {
   }
 
   onTouchMove(event: any): void {
-    if (this.move || this.resize || this.toggle || this.loop) return;
+    if (this.move || this.resize || this.toggle || this.loop || this.lock > 1) return;
     if (!this.getTouch(event.changedTouches)) return;
 
     event.preventDefault();
@@ -63,7 +63,7 @@ export class DrumDirective {
     let bri = this.convertRatio(deltaY / this.getHeight(), 254);
     let hue = this.convertRatio(deltaX / this.getWidth(), 65534);
 
-    this.lights.changeSettings(this.drum, bri, this.lock ? this.drum.hue : hue);
+    this.lights.changeSettings(this.drum, this.lock>1 ? this.drum.bri : bri, this.lock>0 ? this.drum.hue : hue);
   }
 
   private showBounds() {

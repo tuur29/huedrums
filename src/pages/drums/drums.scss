@@ -19,6 +19,16 @@ page-drums {
 		font-size: 1.5rem;
 	}
 
+	.buttons button .label {
+		position: absolute;
+	    right: 0.33em;
+	    bottom: 0.33em;
+		padding: 5px;
+		font-size: 1em;
+		background: #212121;
+		border-radius: 100%;
+	}
+
 	.list {
 		display: flex;
 		flex-flow: row wrap;

@@ -18,7 +18,7 @@ export class DrumsPage {
   resizeDrums: boolean = false;
   toggleOnStates: boolean = false;
   toggleLoopMode: boolean = false;
-  lockSettings: boolean = false;
+  lockSettings: number = 0;
 
   constructor(
     public fullscreen: AndroidFullScreen,
@@ -60,7 +60,7 @@ export class DrumsPage {
       this.resizeDrums = false;
       this.toggleOnStates = false;
       this.toggleLoopMode = false;
-      this.lockSettings = false;
+      this.lockSettings = 0;
       this.drums = this.lights.query();
       console.log(this.drums);
     });
@@ -122,7 +122,7 @@ export class DrumsPage {
   }
 
   lockSettingsToggle() {
-    this.lockSettings = !this.lockSettings;
+    this.lockSettings = (this.lockSettings+1)%3;
   }
 
 }
