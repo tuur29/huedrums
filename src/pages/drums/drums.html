@@ -24,11 +24,11 @@
 		</button>
 	</div>
 
-	<button ion-button class="list" (touchstart)="strobe($event)" (touchmove)="editStrobe($event)" (touchend)="endStrobe($event)">
+	<div ion-button class="list" (touchstart)="strobe($event)" (touchmove)="editStrobe($event)" (touchend)="endStrobe($event)">
 		<button ion-button mode="md" outline *ngFor="let drum of drums"
 			[drum]="drum" [move]="moveDrums" [resize]="resizeDrums" [toggle]="toggleOnStates" [lock]="lockSettings" [loop]="toggleLoopMode" (endLoop)="toggleLoopMode=false">
 			{{ drum.name }}
 		</button>
-	</button>
+	</div>
   
 </ion-content>

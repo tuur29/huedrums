@@ -38,18 +38,22 @@ page-drums {
 		height: 100%;
 		width: 100%;
 		margin: 0;
+		padding: 0;
 		transition: none;
-		padding: 16px;
 		overflow: hidden;
-		background: unset;
+		background: none !important;
 	}
 
-	.list.activated {
-		background-color: transparent;
+	.list > .button-inner {
+		padding: 16px;
 	}
 
-	.list:not(.strobe) {
-		background-color: transparent !important;
+	.list > .button-inner:not(.strobe) {
+		background: transparent !important;
+	}
+
+	.list > .button-inner > .button-effect {
+		display: block;
 	}
 	
 	.strobe, .strobe.activated {

@@ -68,17 +68,17 @@ export class DrumsPage {
 
   strobe(event) {
     if (!this.settings.all.enablestrobing || this.moveDrums || this.resizeDrums || this.toggleOnStates || this.toggleLoopMode)  return;
-    if (event.target.classList.contains("list")) {
+    if (event.target.parentNode.classList.contains("list")) {
       if (!this.lockSettings)
-        event.target.style.animationDuration = this.settings.all.strobespeed+"ms";
         event.target.style.background = "";
+      event.target.style.animationDuration = this.settings.all.strobespeed+"ms";
       event.target.className += " strobe";
     }
   }
 
   editStrobe(event) {
     if (!this.settings.all.enablestrobing || this.moveDrums || this.resizeDrums || this.toggleOnStates || this.toggleLoopMode || this.lockSettings) return;
-    if (event.target.classList.contains("list")) {
+    if (event.target.parentNode.classList.contains("list")) {
       let percent = Math.round(360*event.changedTouches[0].clientX / this.el.nativeElement.offsetWidth);
       let degrees = Math.max(0, Math.min(360, percent));
       let color = "hsl("+ degrees +",100%, "+(degrees?"50":"100")+"%)";
@@ -88,7 +88,7 @@ export class DrumsPage {
 
   endStrobe(event) {
     if (!this.settings.all.enablestrobing || this.moveDrums || this.resizeDrums || this.toggleOnStates || this.toggleLoopMode) return;
-    if (event.target.classList.contains("list")) {
+    if (event.target.parentNode.classList.contains("list")) {
       event.target.className = event.target.className.replace(" strobe","");
     }
   }
