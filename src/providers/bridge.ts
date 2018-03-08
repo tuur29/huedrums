@@ -29,13 +29,14 @@ export class Bridge {
 
   getLights(force?: boolean) {
     let array = [];
-    for (let key in this.bridge.lights) {
-      let light = this.bridge.lights[key];
-      if (!light.state.on)
-        light.state.bri = Math.round(255/2);
-      light.id = key;
-      array.push(light);
-    }
+    if (this.bridge)
+      for (let key in this.bridge.lights) {
+        let light = this.bridge.lights[key];
+        if (!light.state.on)
+          light.state.bri = Math.round(255/2);
+        light.id = key;
+        array.push(light);
+      }
     return array;
   }
 
@@ -57,7 +58,7 @@ export class Bridge {
 
     }).catch((error) => {
       if (loader) loader.dismiss();
-      this.api.showToast();
+      this.api.showToast("Saved Hue bridge cannot be reached, go to settings to logout from your saved bridge", 100000);
       return Observable.of(null);
     });
   }

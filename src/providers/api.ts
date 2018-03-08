@@ -36,7 +36,7 @@ export class Api {
           this.http.get('https://www.meethue.com/api/nupnp').subscribe((data: any[]) => {
             loader.dismiss();
             if (data.length < 1) {
-              this.showToast("There are no Hue Bridges on this network. Re-open this app to try again.", 10000);
+              this.showToast("There are no Hue Bridges on this network. Re-open this app to try again.", 100000);
               this.showManualAlert();
             } else {
               this.selectBridge(data, resolve);
