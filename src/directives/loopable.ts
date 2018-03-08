@@ -2,6 +2,7 @@ import { Directive, ElementRef, HostListener, Input, EventEmitter, Output } from
 
 import { Lights } from '../providers/lights';
 import { Settings } from '../providers/settings';
+import { Noise } from '../providers/noise';
 
 
 @Directive({
@@ -21,7 +22,8 @@ export class LoopableDirective {
   constructor(
     public el: ElementRef,
     public lights: Lights,
-    public settings: Settings
+    public settings: Settings,
+    public noise: Noise
   ) { }
 
   @HostListener('touchstart', ['$event'])
@@ -44,6 +46,7 @@ export class LoopableDirective {
       setTimeout(() => this.lights.toggle(this.drum), this.settings.all.loopflashlength);
       this.beat = setInterval(() => {
         this.lights.toggle(this.drum);
+        this.noise.playBass();
         setTimeout(() => this.lights.toggle(this.drum), this.settings.all.loopflashlength);
       }, diff);
     }

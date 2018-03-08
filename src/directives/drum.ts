@@ -2,6 +2,7 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 import { Lights } from '../providers/lights';
+import { Noise } from '../providers/noise';
 
 
 @Directive({
@@ -21,7 +22,8 @@ export class DrumDirective {
 
   constructor(
     public el: ElementRef,
-    public lights: Lights
+    public lights: Lights,
+    public noise: Noise
   ) { }
 
   ngAfterViewInit() {  
@@ -38,6 +40,7 @@ export class DrumDirective {
 
     this.fingerID = event.targetTouches[event.targetTouches.length-1].identifier;
     this.lights.toggle(this.drum);
+    this.noise.playKick();
   }
 
   @HostListener('touchend', ['$event'])
