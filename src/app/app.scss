@@ -19,6 +19,9 @@
 .card-header-md { color: #fff; }
 .overflow-scroll { overflow-y: hidden; }
 
+.overui .toast-top { padding-bottom: 25px; }
+.overui .toast-bottom { padding-bottom: 50px; }
+
 // Source: https://css-tricks.com/snippets/sass/maintain-aspect-ratio-mixin/
 @mixin aspect-ratio($width, $height) {
 

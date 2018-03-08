@@ -44,7 +44,9 @@ export class TutorialPage {
       this.toastCtrl.create({
         message: "Your Hue Bridge isn't connected yet, so just imagine the screen as one of your lamps.",
         duration: 3000,
-        position: 'bottom'
+        position: 'bottom',
+        dismissOnPageChange: true,
+        cssClass: "overui"
       }).present();
       this.enableDrumToast = false;
     }
@@ -66,7 +68,9 @@ export class TutorialPage {
       let toast = this.toastCtrl.create({
         message: "Drums are the only place where holding won't work!",
         duration: 3000,
-        position: 'bottom'
+        position: 'bottom',
+        dismissOnPageChange: true,
+        cssClass: "overui"
       });
       toast.onDidDismiss(() => {
         this.enableStrobeToast = true;
@@ -97,7 +101,9 @@ export class TutorialPage {
         this.toastCtrl.create({
           message: "Again, use your imagination here. The screen is a lamp for the time being.",
           duration: 3000,
-          position: 'bottom'
+          position: 'bottom',
+          dismissOnPageChange: true,
+          cssClass: "overui"
         }).present();
         this.enableLoopToast = false;
       }
