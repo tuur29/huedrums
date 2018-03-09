@@ -72,7 +72,7 @@ export class DrumsPage {
       if (this.lockSettings != 1 && this.lockSettings != 3)
         event.target.style.background = "";
       event.target.style.animationDuration = this.settings.all.strobespeed+"ms";
-      event.target.className += " strobe";
+      document.getElementById("content").className += " strobe";
     }
   }
 
@@ -89,7 +89,7 @@ export class DrumsPage {
   endStrobe(event) {
     if (!this.settings.all.enablestrobing || this.moveDrums || this.resizeDrums || this.toggleOnStates || this.toggleLoopMode) return;
     if (event.target.parentNode.classList.contains("list")) {
-      event.target.className = event.target.className.replace(" strobe","");
+      document.getElementById("content").className = document.getElementById("content").className.replace(/ strobe/g,"");
     }
   }
 

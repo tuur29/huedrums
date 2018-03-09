@@ -29,6 +29,10 @@ page-drums {
 		border-radius: 100%;
 	}
 
+	.strobe .buttons button .label {
+		background: rgba(#212121, 0.25);
+	}
+
 	.list {
 		display: flex;
 		flex-flow: row wrap;
@@ -48,15 +52,15 @@ page-drums {
 		padding: 16px;
 	}
 
-	.list > .button-inner:not(.strobe) {
+	#content:not(.strobe) .list > .button-inner {
 		background: transparent !important;
 	}
 
-	.list > .button-inner > .button-effect {
+	.list > .button-effect {
 		display: block;
 	}
 	
-	.strobe, .strobe.activated {
+	#content.strobe .list > .button-inner {
 		background: white;
 		animation: strobe 100ms steps(1, end) infinite;
 	}
