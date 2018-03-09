@@ -69,7 +69,7 @@ export class DrumsPage {
   strobe(event) {
     if (!this.settings.all.enablestrobing || this.moveDrums || this.resizeDrums || this.toggleOnStates || this.toggleLoopMode)  return;
     if (event.target.parentNode.classList.contains("list")) {
-      if (!this.lockSettings)
+      if (this.lockSettings != 1 && this.lockSettings != 3)
         event.target.style.background = "";
       event.target.style.animationDuration = this.settings.all.strobespeed+"ms";
       event.target.className += " strobe";
@@ -77,7 +77,7 @@ export class DrumsPage {
   }
 
   editStrobe(event) {
-    if (!this.settings.all.enablestrobing || this.moveDrums || this.resizeDrums || this.toggleOnStates || this.toggleLoopMode || this.lockSettings) return;
+    if (!this.settings.all.enablestrobing || this.moveDrums || this.resizeDrums || this.toggleOnStates || this.toggleLoopMode || this.lockSettings == 1 || this.lockSettings == 3) return;
     if (event.target.parentNode.classList.contains("list")) {
       let percent = Math.round(360*event.changedTouches[0].clientX / this.el.nativeElement.offsetWidth);
       let degrees = Math.max(0, Math.min(360, percent));
@@ -122,7 +122,7 @@ export class DrumsPage {
   }
 
   lockSettingsToggle() {
-    this.lockSettings = (this.lockSettings+1)%3;
+    this.lockSettings = (this.lockSettings+1)%4;
   }
 
 }
