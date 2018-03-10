@@ -49,7 +49,8 @@ export class SettingsPage {
         transitiontime: [this.options.transitiontime],
         enablestrobing: [this.options.enablestrobing],
         strobespeed: [this.options.strobespeed],
-        loopflashlength: [this.options.loopflashlength]
+        loopflashlength: [this.options.loopflashlength],
+        forceapilimit: [this.options.forceapilimit]
       });
 
       this.form.valueChanges.subscribe((v) => {

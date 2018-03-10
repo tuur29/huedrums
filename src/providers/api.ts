@@ -1,8 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 import { Storage } from '@ionic/storage';
 
 import { LoadingController, ToastController, AlertController } from 'ionic-angular';
+import { Settings } from './settings';
 
 
 @Injectable()
@@ -14,13 +16,21 @@ export class Api {
   private loader;
   private ready;
 
+  private countPerSecond = 0;
+  private countToast;
+
   constructor(
     public http: HttpClient,
     public loadingCtrl: LoadingController,
     public toastCtrl: ToastController,
     public alertCtrl: AlertController,
-    public storage: Storage
+    public storage: Storage,
+    public settings: Settings
   ) {
+
+    setInterval(() => {
+      this.countPerSecond = 0;
+    }, 1000);
 
     this.ready = new Promise((resolve, reject) => {
       this.storage.get("_config").then((session) => {
@@ -76,22 +86,27 @@ export class Api {
       }
     }
 
+    if(this.checkCount()) return Observable.of(null);
     return this.http.get(this.url()+endpoint, reqOpts);
   }
 
   post(endpoint: string, body: any, reqOpts?: any) {
+    if(this.checkCount()) return Observable.of(null);
     return this.http.post(this.url()+endpoint, body, reqOpts);
   }
 
   put(endpoint: string, body: any, reqOpts?: any) {
+    if(this.checkCount()) return Observable.of(null);
     return this.http.put(this.url()+endpoint, body, reqOpts);
   }
 
   delete(endpoint: string, reqOpts?: any) {
+    if(this.checkCount()) return Observable.of(null);
     return this.http.delete(this.url()+endpoint, reqOpts);
   }
 
   patch(endpoint: string, body: any, reqOpts?: any) {
+    if(this.checkCount()) return Observable.of(null);
     return this.http.put(this.url()+endpoint, body, reqOpts);
   }
 
@@ -254,6 +269,17 @@ export class Api {
       duration: timeout ? timeout : 3000
     });
     toast.present();
+    return toast;
+  }
+
+  private checkCount() {
+    this.countPerSecond++;
+    if (this.countPerSecond > 10) {
+      if (!this.countToast)
+        this.countToast = this.showToast("A Hue bridge can only handle around 10 requests/second. The bridge might become unresponsive for a few seconds if you send more.", 5000);
+      return this.settings.all.forceapilimit;
+    }
+    return false;
   }
 
 }
