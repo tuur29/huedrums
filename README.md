@@ -22,6 +22,11 @@ Current Features:
 - Multitouch support
 - ...
 
-### Building
+### Releasing
+
+Edit app version in:
+- package.json
+- package-lock.json
+- config.xml
 
 `ionic cordova build android --prod --release -- -- --keystore=platforms/huedrums-key.jks --storePassword="qwerty" --alias=huedrums --password="qwerty"`
