@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import { Storage } from '@ionic/storage';
 
 import { Api } from './api';
 
@@ -11,6 +12,7 @@ export class Bridge {
   private ready;
 
   constructor(
+    public storage: Storage,
     public api: Api
   ) {
 
@@ -32,8 +34,12 @@ export class Bridge {
     if (this.bridge)
       for (let key in this.bridge.lights) {
         let light = this.bridge.lights[key];
-        if (!light.state.on)
+        if (!light.state.on) {
           light.state.bri = Math.round(255/2);
+          this.storage.get("_bri_"+light.uniqueid).then((val) => {
+            if (val != undefined) light.state.bri = Math.round(val);
+          });
+        }
         light.id = key;
         array.push(light);
       }

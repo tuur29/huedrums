@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import { Storage } from '@ionic/storage';
 
 import { Api } from './api';
 import { Bridge } from './bridge';
@@ -12,6 +13,7 @@ export class Lights {
   private ready;
 
   constructor(
+    public storage: Storage,
     public api: Api,
     public bridge: Bridge,
     public settings: Settings
@@ -91,6 +93,8 @@ export class Lights {
       bri: Math.round(bri),
       transitiontime: 2
     };
+
+    this.storage.set("_bri_"+light.uniqueid, Math.round(bri));
 
     if (light.type.toLowerCase().indexOf("color") > -1) {
       state['hue'] = hue ? Math.round(hue) : light.state.hue;
