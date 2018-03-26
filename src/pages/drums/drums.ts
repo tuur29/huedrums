@@ -126,11 +126,11 @@ export class DrumsPage {
 
   lockSettingsToggleTime;
   lockSettingsToggleStart() {
-    this.lockSettingsToggleTime = new Date();
+    this.lockSettingsToggleTime = (new Date()).getTime();
   }
 
   lockSettingsToggleEnd() {
-    if (new Date() - this.lockSettingsToggleTime < 1000)
+    if ((new Date()).getTime() - this.lockSettingsToggleTime < 1000)
       this.lockSettings = (this.lockSettings+1)%4;
     else if (this.lockSettings > 0)
       this.lockSettings = 0;
