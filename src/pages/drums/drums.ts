@@ -34,7 +34,6 @@ export class DrumsPage {
 
     this.lights.onReady().then(() => {
       this.drums = this.lights.query();
-      console.log(this.drums);
     });
 
   }
@@ -64,7 +63,6 @@ export class DrumsPage {
       this.toggleLoopMode = false;
       this.lockSettings = 0;
       this.drums = this.lights.query();
-      console.log(this.drums);
     });
   }
 
@@ -132,7 +130,6 @@ export class DrumsPage {
   }
 
   lockSettingsToggleEnd() {
-    console.log(new Date() - this.lockSettingsToggleTime);
     if (new Date() - this.lockSettingsToggleTime < 1000)
       this.lockSettings = (this.lockSettings+1)%4;
     else if (this.lockSettings > 0)
