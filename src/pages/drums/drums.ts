@@ -126,8 +126,19 @@ export class DrumsPage {
     this.toggleOnStates = false;
   }
 
-  lockSettingsToggle() {
-    this.lockSettings = (this.lockSettings+1)%4;
+  lockSettingsToggleTime;
+  lockSettingsToggleStart() {
+    this.lockSettingsToggleTime = new Date();
+  }
+
+  lockSettingsToggleEnd() {
+    console.log(new Date() - this.lockSettingsToggleTime);
+    if (new Date() - this.lockSettingsToggleTime < 1000)
+      this.lockSettings = (this.lockSettings+1)%4;
+    else if (this.lockSettings > 0)
+      this.lockSettings = 0;
+    else
+      this.lockSettings = 3;
   }
 
   private getStrobeTouch(touches: TouchList): Touch {
