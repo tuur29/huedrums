@@ -44,13 +44,14 @@ export class SettingsPage {
       this.settingsReady = true;
       this.options = this.settings.all;
 
-      // add settings here & in html
+      // add settings here & in html & defaults in app.module.ts
       this.form = this.formBuilder.group({
         transitiontime: [this.options.transitiontime],
         enablestrobing: [this.options.enablestrobing],
         strobespeed: [this.options.strobespeed],
         loopflashlength: [this.options.loopflashlength],
-        forceapilimit: [this.options.forceapilimit]
+        forceapilimit: [this.options.forceapilimit],
+        highlightontap: [this.options.highlightontap]
       });
 
       this.form.valueChanges.subscribe((v) => {

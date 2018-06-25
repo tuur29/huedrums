@@ -23,7 +23,8 @@ export function provideSettings(storage: Storage) {
     enablestrobing: true,
     strobespeed: 100,
     loopflashlength: 200,
-    forceapilimit: false
+    forceapilimit: false,
+    highlightontap: true
   });
 }
 

@@ -71,9 +71,9 @@ export class Lights {
     };
 
     if (state.on)
-      if (light.type.toLowerCase().indexOf("color") > -1)
+      if (this.canDisplayColor(light))
         state['hue'] = light.state.hue;
-      else if (light.type.toLowerCase().indexOf("temperature") > -1)
+      else if (this.canAlterTemperature(light))
         state['ct'] = light.state.hue;
 
     this.api.put(url, state).timeout(500).onErrorResumeNext(Observable.empty()).subscribe();
@@ -96,15 +96,23 @@ export class Lights {
 
     this.storage.set("_bri_"+light.uniqueid, Math.round(bri));
 
-    if (light.type.toLowerCase().indexOf("color") > -1) {
+    if (this.canDisplayColor(light)) {
       state['hue'] = hue ? Math.round(hue) : light.state.hue;
       state['sat'] = 254;
-    } else if (light.type.toLowerCase().indexOf("temperature") > -1){
+    } else if (this.canAlterTemperature(light)){
       state['ct'] = hue ? Math.round(hue) : light.state.hue;
     }
 
     this.api.put(url, state).timeout(500).onErrorResumeNext(Observable.empty()).subscribe();
 
+  }
+
+  canDisplayColor(light) {
+    return light.type.toLowerCase().indexOf("color") > -1;
+  }
+
+  canAlterTemperature(light) {
+    return light.type.toLowerCase().indexOf("temperature") > -1;
   }
 
 }

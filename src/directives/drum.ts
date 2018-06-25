@@ -2,6 +2,7 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 import { Lights } from '../providers/lights';
+import { Settings } from '../providers/settings';
 
 
 @Directive({
@@ -21,7 +22,8 @@ export class DrumDirective {
 
   constructor(
     public el: ElementRef,
-    public lights: Lights
+    public lights: Lights,
+    public settings: Settings
   ) { }
 
   ngAfterViewInit() {  
@@ -38,10 +40,12 @@ export class DrumDirective {
 
     this.fingerID = event.targetTouches[event.targetTouches.length-1].identifier;
     this.lights.toggle(this.drum);
+    this.highlight(true);
   }
 
   @HostListener('touchend', ['$event'])
   onMouseUp(event: any): void {
+    this.highlight(false);
     if (this.move || this.resize || this.toggle) return;
     this.dragactivated = false;
     this.lights.toggle(this.drum);
@@ -67,6 +71,8 @@ export class DrumDirective {
       this.lock>1 ? this.drum.state.bri : bri,
       this.lock==1 ? this.drum.state.hue : hue
     );
+    
+    this.highlight(true);
   }
 
   private showBounds() {
@@ -107,6 +113,24 @@ export class DrumDirective {
 
   private getTouch(touches: TouchList): Touch {
     return Array.from(touches).find(t => t.identifier==this.fingerID);
+  }
+
+  private highlight(state = null) {
+    if (!this.settings.all.highlightontap) return;
+
+    if (state == true) {
+      // turn on
+      let color = "hsl(0deg,0%,65%)";
+      if (this.lights.canDisplayColor(this.drum))
+        color = "hsl("+ (360*this.drum.state.hue/65534) +"deg, 100%, 50%)";
+
+      this.el.nativeElement.style.borderColor = color;
+      this.el.nativeElement.style.color = color;
+    } else {
+      // turn off
+      this.el.nativeElement.style.borderColor = "";
+      this.el.nativeElement.style.color = "";
+    }
   }
 
 }

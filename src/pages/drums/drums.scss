@@ -48,6 +48,10 @@ page-drums {
 		background: none !important;
 	}
 
+	.list button {
+		transition: border-color .1s, color .1s;
+	}
+
 	.list > .button-inner {
 		padding: 16px;
 	}
