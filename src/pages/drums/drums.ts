@@ -138,6 +138,30 @@ export class DrumsPage {
       this.lockSettings = 3;
   }
 
+  moved = false;
+  stopMoveDrumsToggle() {
+    if (this.moved)
+      this.moveDrumsToggle();
+    this.moved = false;
+  }
+
+  moveButtons(event) {
+    if (!this.moveDrums) return;
+    this.moved = true;
+
+    var top = event.changedTouches[0].clientY;
+    if (top < 0) top = 0;
+    if (top > document.getElementById("content").clientHeight - 80) top = document.getElementById("content").clientHeight - 80;
+
+    var right = document.getElementById("content").clientWidth - event.changedTouches[0].clientX;
+    if (right < 0) right = 0;
+    if (right > document.getElementById("content").clientWidth - 80) right = document.getElementById("content").clientWidth - 80;
+
+    document.getElementById("buttons").style.top = top + "px";
+    document.getElementById("buttons").style.right = right + "px";
+    event.stopPropagation();
+  }
+
   private getStrobeTouch(touches: TouchList): Touch {
     return Array.from(touches).find(t => t.identifier==this.strobeFinger);
   }
