@@ -43,7 +43,11 @@ export class Api {
         } else {
 
           let loader = this.showLoader();
-          this.http.get('https://www.meethue.com/api/nupnp').subscribe((data: any[]) => {
+          this.http.get('https://discovery.meethue.com/').catch((err, obs) => {
+            loader.dismiss();
+            this.showToast("Could not discover Hue Bridges on your network.", 100000);
+            return Observable.of();
+          }).subscribe((data: any[]) => {
             loader.dismiss();
             if (data.length < 1) {
               this.showToast("There are no Hue Bridges on this network. Re-open this app to try again.", 100000);
